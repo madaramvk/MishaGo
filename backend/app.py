@@ -32,6 +32,9 @@ def create_app(config=None):
         from backend.routes.mood import bp as mood_bp
         app.register_blueprint(mood_bp)
 
+        from backend.routes.schedule import bp as schedule_bp
+        app.register_blueprint(schedule_bp)
+
     return app
 
 
