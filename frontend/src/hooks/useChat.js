@@ -43,7 +43,21 @@ export default function useChat(contextType = "general", goalId = null, onSetupC
           return updated;
         });
       },
-      () => setStreaming(false),
+      () => {
+        // Clean SETUP_READY from the last message
+        setMessages((prev) => {
+          const updated = [...prev];
+          const last = updated[updated.length - 1];
+          if (last && last.role === "gucci") {
+            updated[updated.length - 1] = {
+              ...last,
+              content: last.content.replace(/\s*SETUP_READY:.*$/ms, '').trim(),
+            };
+          }
+          return updated;
+        });
+        setStreaming(false);
+      },
       (error) => {
         setMessages((prev) => {
           const updated = [...prev];
