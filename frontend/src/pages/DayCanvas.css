@@ -505,3 +505,40 @@
   color: var(--text-muted);
   margin-left: auto;
 }
+
+/* Desktop — 2x2 grid for time rows */
+@media (min-width: 768px) {
+  .day-canvas { min-height: auto; height: calc(100vh - 48px); }
+
+  .day-header { padding: 12px 0; }
+  .day-title { font-size: 22px; }
+
+  .timeline-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 0 12px;
+    flex: 1;
+  }
+
+  .timeline-row {
+    border-radius: 20px;
+    min-height: 0;
+  }
+
+  .float-regen {
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .day-title { font-size: 26px; }
+
+  .timeline-grid {
+    gap: 12px;
+  }
+}

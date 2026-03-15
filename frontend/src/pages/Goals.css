@@ -18,6 +18,7 @@
   color: var(--text);
   font-size: 13px;
   cursor: pointer;
+  font-family: var(--font-body, inherit);
 }
 
 .direction-section { margin-bottom: 24px; }
@@ -35,4 +36,34 @@
   padding: 48px 16px;
   color: var(--text-muted);
   font-size: 16px;
+}
+
+/* Desktop — grid layout for goal cards */
+@media (min-width: 768px) {
+  .goals-page { padding: 0; }
+
+  .goals-header h2 { font-size: 28px; }
+
+  .direction-section {
+    margin-bottom: 32px;
+  }
+
+  /* Cards in a grid */
+  .direction-section,
+  .daily-board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .direction-title {
+    width: 100%;
+    font-size: 18px;
+    padding: 0;
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .goals-header h2 { font-size: 32px; }
 }

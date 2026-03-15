@@ -338,3 +338,80 @@
   z-index: 10;
   white-space: nowrap;
 }
+
+/* ==========================================
+   DESKTOP LAYOUT (>= 768px)
+   Split: Gucci + habits left, chat right
+   ========================================== */
+@media (min-width: 768px) {
+  .gucci-home {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    min-height: auto;
+    height: calc(100vh - 48px);
+    gap: 0;
+  }
+
+  /* Garden fills the left panel background */
+  .garden {
+    position: absolute;
+    width: 45%;
+    border-radius: 0;
+  }
+
+  /* Left panel: Gucci + mood + habits */
+  .gucci-home > .gucci-wrap,
+  .gucci-home > .mood-picker,
+  .gucci-home > .habit-row {
+    width: 45%;
+  }
+
+  /* Right panel: chat area + input */
+  .chat-area {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 55%;
+    height: calc(100% - 70px);
+    max-height: none;
+    padding: 24px 24px 16px;
+    border-left: 1px solid var(--text-hint);
+    background: var(--bg);
+  }
+
+  .chat-input-bar {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 55%;
+    margin: 0;
+    border-radius: 0;
+    border-top: 1px solid var(--text-hint);
+    border-left: 1px solid var(--text-hint);
+    padding: 14px 24px;
+  }
+
+  .chat-input {
+    font-size: 16px;
+  }
+
+  .habit-row {
+    padding: 12px 24px;
+  }
+
+  .habit-chip {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .chat-area {
+    padding: 32px 40px 20px;
+  }
+
+  .chat-input-bar {
+    padding: 16px 40px;
+  }
+}

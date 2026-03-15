@@ -194,3 +194,27 @@
   color: var(--text-muted);
   line-height: 1.4;
 }
+
+/* Desktop — two columns: stats+mind left, settings right */
+@media (min-width: 768px) {
+  .me-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-content: start;
+  }
+
+  .me-page h2 { grid-column: span 2; font-size: 28px; margin-top: 0; }
+  .me-page h2:nth-of-type(2) { grid-column: span 2; }
+
+  .mood-heatmap { grid-column: 1; }
+  .stats { grid-column: 2; }
+
+  .mind-toggle { grid-column: span 2; }
+  .mind-panel { grid-column: span 2; }
+
+  .settings-list { grid-column: span 2; max-width: 600px; }
+
+  .stat-card { padding: 20px 12px; }
+  .stat-value { font-size: 18px; }
+}

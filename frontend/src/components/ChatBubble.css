@@ -72,3 +72,16 @@
     transform: translateY(0) scale(1);
   }
 }
+
+/* Desktop — wider bubbles, bigger text */
+@media (min-width: 768px) {
+  .bubble-content {
+    max-width: 70%;
+    font-size: 15px;
+    padding: 14px 20px;
+  }
+
+  .chat-bubble {
+    margin: 8px 24px;
+  }
+}

@@ -56,3 +56,19 @@
   color: var(--text-muted);
   font-size: 16px;
 }
+
+/* Desktop — full height, wider */
+@media (min-width: 768px) {
+  .goal-chat {
+    height: calc(100vh - 48px);
+  }
+
+  .goal-chat-header {
+    padding: 20px 24px;
+    font-size: 18px;
+  }
+
+  .goal-chat-input-bar {
+    margin: 8px 24px 16px;
+  }
+}

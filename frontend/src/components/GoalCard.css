@@ -150,3 +150,20 @@
 .goal-chat-btn:active {
   transform: scale(0.97);
 }
+
+/* Desktop — cards take half width */
+@media (min-width: 768px) {
+  .goal-card {
+    width: calc(50% - 32px);
+    margin: 8px;
+  }
+
+  .goal-title { font-size: 16px; }
+  .step-text { font-size: 14px; }
+}
+
+@media (min-width: 1200px) {
+  .goal-card {
+    width: calc(33.33% - 24px);
+  }
+}

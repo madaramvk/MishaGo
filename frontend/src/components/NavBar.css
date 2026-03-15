@@ -1,10 +1,11 @@
+/* ==========================================
+   MOBILE — bottom bar (default)
+   ========================================== */
 .navbar {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 430px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-around;
   padding: 8px 20px 14px;
@@ -44,4 +45,86 @@
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.3px;
+}
+
+/* ==========================================
+   DESKTOP — vertical sidebar (>= 768px)
+   ========================================== */
+@media (min-width: 768px) {
+  .navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    right: auto;
+    width: 220px;
+    min-width: 220px;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+    padding: 24px 12px;
+    border-top: none;
+    border-right: 1px solid var(--text-hint);
+    background: var(--bg);
+    backdrop-filter: none;
+  }
+
+  .nav-tab {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    width: 100%;
+  }
+
+  .nav-icon {
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+  }
+
+  .nav-label {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .nav-tab.active {
+    background: var(--accent-soft);
+    border-color: rgba(184, 154, 219, 0.2);
+  }
+
+  /* App title at top of sidebar */
+  .navbar::before {
+    content: 'MishaGo';
+    display: block;
+    font-family: var(--font-display, Georgia, serif);
+    font-size: 24px;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--text);
+    padding: 8px 16px 24px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--text-hint);
+    margin-bottom: 16px;
+  }
+}
+
+/* Large desktop — wider sidebar */
+@media (min-width: 1200px) {
+  .navbar {
+    width: 260px;
+    min-width: 260px;
+    padding: 32px 16px;
+  }
+
+  .nav-tab {
+    padding: 14px 20px;
+  }
+
+  .nav-label {
+    font-size: 15px;
+  }
 }
