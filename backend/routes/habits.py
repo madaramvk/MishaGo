@@ -82,6 +82,14 @@ def log_habit():
         pet = Pet.query.first()
         pet.xp += habit.xp_reward
     db.session.commit()
+
+    # Run shadow analyzer after each habit log
+    try:
+        from backend.shadow_analyzer import analyze_all
+        analyze_all()
+    except Exception:
+        pass  # non-critical
+
     return jsonify({"ok": True, "xp": Pet.query.first().xp})
 
 

@@ -71,20 +71,34 @@ def generate_schedule():
     # Clear existing generated blocks for tomorrow
     ScheduleBlock.query.filter_by(date=tomorrow, generated_by="gucci").delete()
 
-    dir_map = {d.name: d for d in Direction.query.all()}
-    # Build name-to-entity maps for linking
+    dir_map = {d.name.lower(): d for d in Direction.query.all()}
     habit_map = {h.name.lower(): h for h in Habit.query.filter_by(active=True).all()}
     goal_map = {g.title.lower(): g for g in Goal.query.filter_by(status="active").all()}
 
+    # Keywords to guess direction
+    dir_keywords = {
+        "health": ["зарядк", "workout", "спорт", "физ", "упражн", "гигиен", "здоров"],
+        "career": ["работ", "фриланс", "upwork", "портфолио", "career", "проект"],
+        "mind": ["чтен", "read", "книг", "фокус", "focus", "учёб", "учеб"],
+        "life": ["отдых", "прогулк", "медитац", "сон"],
+    }
+
+    def guess_direction(title):
+        lower = title.lower()
+        for dir_name, keywords in dir_keywords.items():
+            if any(kw in lower for kw in keywords):
+                return dir_map.get(dir_name)
+        return None
+
     created = []
     for b in blocks_data:
-        direction = dir_map.get(b.get("direction"))
+        direction = dir_map.get(b.get("direction", "").lower())
         block_type = b.get("block_type", "custom")
+        title_lower = b["title"].lower()
 
-        # Try to link to existing habit or goal by name
+        # Link to habit or goal
         habit_id = None
         goal_id = None
-        title_lower = b["title"].lower()
         if block_type == "habit":
             for name, habit in habit_map.items():
                 if name in title_lower or title_lower in name:
@@ -99,6 +113,10 @@ def generate_schedule():
                     if not direction:
                         direction = Direction.query.get(goal.direction_id)
                     break
+
+        # Fallback: guess direction from title keywords
+        if not direction:
+            direction = guess_direction(b["title"])
 
         block = ScheduleBlock(
             date=tomorrow,
