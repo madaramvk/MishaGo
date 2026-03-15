@@ -57,26 +57,150 @@
 }
 
 /* Garden stage 0-9: progressively richer */
-.garden-stage-0 { /* bare — just ambient light */ }
 
+/* Stage 0: bare earth — minimal ambient light only */
+.garden-stage-0::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(196,168,224,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 20%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 20%);
+}
+.garden-stage-0::after { opacity: 0.15; }
+
+/* Stage 1: first hint of moss — single green patch */
 .garden-stage-1::before {
   background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 48%),
+    radial-gradient(ellipse at 20% 90%, var(--leaf-green) 0%, transparent 28%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 25%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 25%);
+}
+.garden-stage-1::after { opacity: 0.25; }
+
+/* Stage 2: two moss patches, subtle ground glow */
+.garden-stage-2::before {
+  background:
     radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 90%, var(--leaf-green) 0%, transparent 35%),
-    radial-gradient(ellipse at 80% 85%, var(--moss-green) 0%, transparent 30%),
+    radial-gradient(ellipse at 18% 88%, var(--leaf-green) 0%, transparent 32%),
+    radial-gradient(ellipse at 78% 85%, var(--moss-green) 0%, transparent 28%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 28%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 28%);
+}
+.garden-stage-2::after { opacity: 0.3; }
+
+/* Stage 3: spreading green, stone-like mid tones */
+.garden-stage-3::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 52%),
+    radial-gradient(ellipse at 15% 85%, var(--leaf-green) 0%, transparent 38%),
+    radial-gradient(ellipse at 82% 82%, var(--moss-green) 0%, transparent 33%),
+    radial-gradient(ellipse at 50% 95%, var(--leaf-green) 0%, transparent 22%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 28%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 28%);
+}
+.garden-stage-3::after { opacity: 0.35; }
+
+/* Stage 4: richer greens, warm light begins to filter in */
+.garden-stage-4::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 55%),
+    radial-gradient(ellipse at 12% 82%, var(--leaf-green) 0%, transparent 42%),
+    radial-gradient(ellipse at 85% 80%, var(--moss-green) 0%, transparent 38%),
+    radial-gradient(ellipse at 50% 96%, var(--leaf-green) 0%, transparent 28%),
+    radial-gradient(ellipse at 35% 70%, rgba(157,214,163,0.12) 0%, transparent 20%),
     radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 30%),
     radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 30%);
 }
+.garden-stage-4::after { opacity: 0.38; }
 
-.garden-stage-2::before,
-.garden-stage-3::before {
+/* Stage 5: warm golden light, lush corners */
+.garden-stage-5::before {
   background:
-    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 50%),
-    radial-gradient(ellipse at 15% 85%, var(--leaf-green) 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 80%, var(--moss-green) 0%, transparent 35%),
-    radial-gradient(ellipse at 50% 92%, var(--leaf-green) 0%, transparent 25%),
-    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 30%),
-    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 30%);
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 58%),
+    radial-gradient(ellipse at 10% 80%, var(--leaf-green) 0%, transparent 45%),
+    radial-gradient(ellipse at 88% 78%, var(--moss-green) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 97%, var(--leaf-green) 0%, transparent 32%),
+    radial-gradient(ellipse at 30% 60%, rgba(240,201,135,0.10) 0%, transparent 25%),
+    radial-gradient(ellipse at 70% 55%, rgba(240,201,135,0.08) 0%, transparent 22%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 32%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 32%);
+}
+.garden-stage-5::after { opacity: 0.4; }
+
+/* Stage 6: dappled light, dense foliage at edges */
+.garden-stage-6::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 60%),
+    radial-gradient(ellipse at 8% 78%, var(--leaf-green) 0%, transparent 48%),
+    radial-gradient(ellipse at 90% 75%, var(--moss-green) 0%, transparent 44%),
+    radial-gradient(ellipse at 50% 98%, var(--leaf-green) 0%, transparent 36%),
+    radial-gradient(ellipse at 25% 50%, rgba(240,201,135,0.12) 0%, transparent 28%),
+    radial-gradient(ellipse at 75% 50%, rgba(240,201,135,0.10) 0%, transparent 25%),
+    radial-gradient(ellipse at 50% 30%, rgba(196,168,224,0.08) 0%, transparent 30%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 34%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 34%);
+}
+.garden-stage-6::after { opacity: 0.42; }
+
+/* Stage 7: water shimmer — cool blue hints at bottom, flowers */
+.garden-stage-7::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 62%),
+    radial-gradient(ellipse at 6% 76%, var(--leaf-green) 0%, transparent 50%),
+    radial-gradient(ellipse at 92% 73%, var(--moss-green) 0%, transparent 46%),
+    radial-gradient(ellipse at 50% 98%, var(--leaf-green) 0%, transparent 40%),
+    radial-gradient(ellipse at 22% 45%, rgba(240,201,135,0.13) 0%, transparent 30%),
+    radial-gradient(ellipse at 78% 45%, rgba(240,201,135,0.11) 0%, transparent 28%),
+    radial-gradient(ellipse at 50% 88%, rgba(126,184,218,0.14) 0%, transparent 25%),
+    radial-gradient(ellipse at 50% 28%, rgba(196,168,224,0.10) 0%, transparent 32%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 36%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 36%);
+}
+.garden-stage-7::after { opacity: 0.44; }
+
+/* Stage 8: vivid garden — flowers bloom, warm + cool balance */
+.garden-stage-8::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 65%),
+    radial-gradient(ellipse at 5% 74%, var(--leaf-green) 0%, transparent 52%),
+    radial-gradient(ellipse at 93% 71%, var(--moss-green) 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 99%, var(--leaf-green) 0%, transparent 44%),
+    radial-gradient(ellipse at 20% 42%, rgba(240,201,135,0.15) 0%, transparent 32%),
+    radial-gradient(ellipse at 80% 42%, rgba(240,201,135,0.13) 0%, transparent 30%),
+    radial-gradient(ellipse at 35% 85%, rgba(126,184,218,0.16) 0%, transparent 28%),
+    radial-gradient(ellipse at 65% 85%, rgba(126,184,218,0.14) 0%, transparent 26%),
+    radial-gradient(ellipse at 50% 26%, rgba(196,168,224,0.12) 0%, transparent 35%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 38%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 38%);
+}
+.garden-stage-8::after { opacity: 0.46; }
+
+/* Stage 9: full greenhouse — ambient shimmer, all layers active */
+.garden-stage-9::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 68%),
+    radial-gradient(ellipse at 4% 72%, var(--leaf-green) 0%, transparent 55%),
+    radial-gradient(ellipse at 95% 70%, var(--moss-green) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, var(--leaf-green) 0%, transparent 48%),
+    radial-gradient(ellipse at 18% 40%, rgba(240,201,135,0.17) 0%, transparent 34%),
+    radial-gradient(ellipse at 82% 40%, rgba(240,201,135,0.15) 0%, transparent 32%),
+    radial-gradient(ellipse at 33% 82%, rgba(126,184,218,0.18) 0%, transparent 30%),
+    radial-gradient(ellipse at 67% 82%, rgba(126,184,218,0.16) 0%, transparent 28%),
+    radial-gradient(ellipse at 50% 24%, rgba(196,168,224,0.14) 0%, transparent 38%),
+    radial-gradient(ellipse at 15% 60%, rgba(157,214,163,0.10) 0%, transparent 20%),
+    radial-gradient(ellipse at 85% 60%, rgba(157,214,163,0.10) 0%, transparent 20%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 40%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 40%);
+}
+.garden-stage-9::after { opacity: 0.48; }
+
+/* Stage 9: gentle ambient particle shimmer via animation */
+@keyframes garden-shimmer {
+  0%, 100% { opacity: 0.48; }
+  50% { opacity: 0.56; }
+}
+.garden-stage-9::after {
+  animation: garden-shimmer 6s ease-in-out infinite;
 }
 
 /* All content above garden */
@@ -192,4 +316,25 @@
 .send-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+}
+
+/* ==========================================
+   XP FLOAT ANIMATION
+   ========================================== */
+@keyframes xp-float-up {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  60%  { opacity: 1; transform: translateY(-28px) scale(1.1); }
+  100% { opacity: 0; transform: translateY(-48px) scale(0.9); }
+}
+
+.xp-float {
+  position: absolute;
+  pointer-events: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-soft);
+  animation: xp-float-up 1.2s ease-out forwards;
+  z-index: 10;
+  white-space: nowrap;
 }

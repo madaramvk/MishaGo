@@ -124,6 +124,16 @@ def generate_schedule():
         skip_count = sum(1 for b in yesterday_blocks if b.status == "skipped")
         context += f"\n\nYesterday: {done_count} done, {skip_count} skipped out of {len(yesterday_blocks)} planned"
 
+    # Add shadow insights (confidence > 0.5) for behavioral context
+    from backend.models import ShadowInsight
+    insights = ShadowInsight.query.filter(
+        ShadowInsight.confidence > 0.5
+    ).order_by(ShadowInsight.created_at.desc()).limit(8).all()
+    if insights:
+        insight_lines = [f"  - [{i.insight_type}] {i.content} (confidence: {i.confidence:.2f})"
+                         for i in insights]
+        context += "\n\nBehavioral insights (from shadow analyzer):\n" + "\n".join(insight_lines)
+
     context += f"\n\nWake time: {wake_time}"
     context += f"\nIntensity mode: {mode}"
     context += f"\nGenerate schedule for: {tomorrow.isoformat()}"
