@@ -46,14 +46,14 @@
   min-height: 120px;
 }
 
-/* ---- MORNING — golden sunrise, warm sky ---- */
+/* ---- MORNING — soft warm glow ---- */
 .timeline-row.morning {
   background: linear-gradient(180deg,
-    #2D2218 0%,
-    #4A3020 30%,
-    #6B4423 50%,
-    #D4874D 80%,
-    #E8A862 100%
+    #1E1815 0%,
+    #2A2018 30%,
+    #352A1E 50%,
+    #4A3828 80%,
+    #5C4530 100%
   );
 }
 
@@ -66,8 +66,8 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: radial-gradient(circle, #FFD700 0%, #FF8C00 40%, transparent 70%);
-  box-shadow: 0 0 40px 15px rgba(255, 200, 0, 0.3);
+  background: radial-gradient(circle, #C49A40 0%, #8B6914 40%, transparent 70%);
+  box-shadow: 0 0 30px 10px rgba(196, 154, 64, 0.15);
   animation: sunRise 8s ease-in-out infinite alternate;
 }
 
@@ -93,13 +93,13 @@
   100% { transform: translateX(5%); opacity: 0.5; }
 }
 
-/* ---- DAY — bright blue sky with clouds ---- */
+/* ---- DAY — muted blue sky ---- */
 .timeline-row.midday {
   background: linear-gradient(180deg,
-    #1a3a5c 0%,
-    #2e6b9e 30%,
-    #4A90C4 60%,
-    #7AB8E0 100%
+    #151D2A 0%,
+    #1A2840 30%,
+    #1E3050 60%,
+    #253A58 100%
   );
 }
 
@@ -137,14 +137,14 @@
   100% { transform: translateX(20px); }
 }
 
-/* ---- EVENING — sunset, purple-orange sky ---- */
+/* ---- EVENING — muted sunset ---- */
 .timeline-row.evening {
   background: linear-gradient(180deg,
-    #1A1530 0%,
-    #2D1B4E 25%,
-    #6B2D5B 50%,
-    #C4564A 75%,
-    #E8845A 100%
+    #15121E 0%,
+    #1E1530 25%,
+    #2A1A35 50%,
+    #3A2030 75%,
+    #452838 100%
   );
 }
 
@@ -157,8 +157,8 @@
   right: 0;
   height: 40%;
   background: linear-gradient(to top,
-    rgba(232, 132, 90, 0.2),
-    rgba(196, 86, 74, 0.1),
+    rgba(232, 132, 90, 0.08),
+    rgba(196, 86, 74, 0.04),
     transparent
   );
   animation: sunsetPulse 6s ease-in-out infinite alternate;
@@ -306,12 +306,12 @@
   min-width: 40px;
 }
 
-/* Bubble container */
+/* Bubble container — spread horizontally so they don't overlap */
 .track-bubbles {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 6px;
   margin-bottom: 6px;
 }
 

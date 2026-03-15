@@ -1,7 +1,7 @@
 .time-bubble {
   width: auto;
   min-width: 80px;
-  max-width: 120px;
+  max-width: 130px;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -9,26 +9,38 @@
   padding: 10px 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .time-bubble:active { transform: scale(0.95); }
 
+/* Career — soft blue, distinct */
 .bubble-career {
-  background: rgba(126, 184, 218, 0.2);
-  border: 1.5px solid rgba(126, 184, 218, 0.5);
+  background: rgba(100, 160, 210, 0.25);
+  border: 1.5px solid rgba(100, 160, 210, 0.5);
+  box-shadow: 0 2px 8px rgba(100, 160, 210, 0.15);
 }
+
+/* Health — green, fresh */
 .bubble-health {
-  background: rgba(157, 214, 163, 0.2);
-  border: 1.5px solid rgba(157, 214, 163, 0.5);
+  background: rgba(120, 190, 130, 0.25);
+  border: 1.5px solid rgba(120, 190, 130, 0.5);
+  box-shadow: 0 2px 8px rgba(120, 190, 130, 0.15);
 }
+
+/* Mind — lavender purple */
 .bubble-mind {
-  background: rgba(196, 168, 224, 0.2);
-  border: 1.5px solid rgba(196, 168, 224, 0.5);
+  background: rgba(170, 140, 210, 0.25);
+  border: 1.5px solid rgba(170, 140, 210, 0.5);
+  box-shadow: 0 2px 8px rgba(170, 140, 210, 0.15);
 }
+
+/* Life — warm amber/gold */
 .bubble-life {
-  background: rgba(240, 201, 135, 0.2);
-  border: 1.5px solid rgba(240, 201, 135, 0.5);
+  background: rgba(220, 180, 100, 0.25);
+  border: 1.5px solid rgba(220, 180, 100, 0.5);
+  box-shadow: 0 2px 8px rgba(220, 180, 100, 0.15);
 }
 
 .bubble-text {
@@ -37,5 +49,5 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--text);
+  color: rgba(255, 255, 255, 0.9);
 }
