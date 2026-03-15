@@ -6,17 +6,17 @@
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Nunito', system-ui, sans-serif;
 
-  --bg: #FFF8F0;
-  --bg-deep: #F5EDE0;
-  --bg-card: rgba(255, 255, 255, 0.75);
-  --bg-glass: rgba(255, 248, 240, 0.7);
-  --text: #3D3020;
-  --text-muted: rgba(61, 48, 32, 0.55);
-  --text-hint: rgba(61, 48, 32, 0.2);
-  --shadow: 0 4px 24px rgba(61, 48, 32, 0.08);
-  --shadow-lg: 0 8px 40px rgba(61, 48, 32, 0.12);
-  --glow: none;
-  --nav-bg: rgba(255, 248, 240, 0.9);
+  --bg: #FBF5EC;
+  --bg-deep: #F3EBDF;
+  --bg-card: rgba(255, 252, 245, 0.85);
+  --bg-glass: rgba(255, 250, 240, 0.75);
+  --text: #4A3D2E;
+  --text-muted: rgba(74, 61, 46, 0.55);
+  --text-hint: rgba(74, 61, 46, 0.18);
+  --shadow: 0 4px 20px rgba(74, 61, 46, 0.06);
+  --shadow-lg: 0 8px 32px rgba(74, 61, 46, 0.10);
+  --glow: 0 0 24px rgba(212, 164, 108, 0.08);
+  --nav-bg: rgba(251, 245, 236, 0.92);
 
   /* Direction colors */
   --color-career: #7EB8DA;
