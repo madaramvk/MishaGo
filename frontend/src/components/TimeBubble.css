@@ -1,0 +1,26 @@
+.time-bubble {
+  margin: 4px auto;
+  width: 70%;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.time-bubble:active { transform: scale(0.97); }
+
+.bubble-career { background: rgba(126, 184, 218, var(--bubble-fill)); border: 1.5px solid rgba(126, 184, 218, var(--bubble-border)); }
+.bubble-health { background: rgba(157, 214, 163, var(--bubble-fill)); border: 1.5px solid rgba(157, 214, 163, var(--bubble-border)); }
+.bubble-mind { background: rgba(196, 168, 224, var(--bubble-fill)); border: 1.5px solid rgba(196, 168, 224, var(--bubble-border)); }
+.bubble-life { background: rgba(240, 201, 135, var(--bubble-fill)); border: 1.5px solid rgba(240, 201, 135, var(--bubble-border)); }
+
+.bubble-text {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

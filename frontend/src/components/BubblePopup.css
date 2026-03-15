@@ -1,0 +1,39 @@
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+.popup-card {
+  background: var(--bg-card);
+  border-radius: 24px;
+  padding: 24px;
+  width: 80%;
+  max-width: 320px;
+  box-shadow: var(--shadow);
+}
+
+.popup-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.popup-time { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+
+.popup-actions { display: flex; gap: 12px; }
+
+.popup-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 16px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.popup-btn.chat { background: var(--accent-soft); color: var(--text); }
+.popup-btn.done { background: rgba(157, 214, 163, 0.2); color: var(--color-health); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }

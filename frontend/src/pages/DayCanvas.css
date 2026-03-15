@@ -1,0 +1,73 @@
+.day-canvas { padding: 0; }
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
+.day-title { font-size: 18px; font-weight: 700; }
+.swipe-btn { background: none; border: none; font-size: 16px; color: var(--text-muted); cursor: pointer; padding: 8px; }
+
+.time-flow {
+  display: flex;
+  flex-direction: column;
+}
+
+.hour-slot {
+  display: flex;
+  min-height: 40px;
+  padding: 4px 0;
+  transition: background 0.5s ease;
+}
+
+/* Time-of-day gradient tints */
+.hour-slot.morning { background: var(--day-morning); }
+.hour-slot.midday { background: var(--day-midday); }
+.hour-slot.evening { background: var(--day-evening); }
+
+/* Busy zones get slightly darker */
+.hour-slot.busy { background-color: var(--day-busy); }
+
+/* Free zones get more contrast (lighter) — achieved by NOT adding busy tint */
+
+.hour-hint {
+  width: 28px;
+  text-align: right;
+  padding-right: 8px;
+  font-size: 11px;
+  color: var(--text-hint);
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+
+.hour-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-day {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.generate-btn {
+  padding: 16px 24px;
+  border-radius: 24px;
+  border: 1.5px dashed var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.generate-btn:active { transform: scale(0.95); }
