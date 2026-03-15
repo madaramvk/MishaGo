@@ -95,17 +95,18 @@ export default function DayCanvas() {
 
       {showModeSelect && (
         <div className="mode-select">
+          <button className="mode-btn auto" onClick={() => generateSchedule("auto")}>
+            🐱 Gucci decides
+            <span className="mode-desc">based on your state</span>
+          </button>
           <button className="mode-btn light" onClick={() => generateSchedule("light")}>
             🌿 Light
-            <span className="mode-desc">fewer tasks</span>
           </button>
           <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
             ⚖️ Balanced
-            <span className="mode-desc">steady</span>
           </button>
           <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
             🔥 Intense
-            <span className="mode-desc">push hard</span>
           </button>
         </div>
       )}

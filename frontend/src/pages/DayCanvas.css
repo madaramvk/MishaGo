@@ -439,6 +439,8 @@
 
 .mode-btn:active { transform: scale(0.95); }
 
+.mode-btn.auto { border-color: var(--accent); background: var(--accent-soft); }
+.mode-btn.auto:hover { background: rgba(184, 154, 219, 0.2); }
 .mode-btn.light:hover { border-color: #9DD6A3; background: rgba(157, 214, 163, 0.1); }
 .mode-btn.normal:hover { border-color: var(--accent); background: var(--accent-soft); }
 .mode-btn.intense:hover { border-color: #E8845A; background: rgba(232, 132, 90, 0.1); }

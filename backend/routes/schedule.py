@@ -70,7 +70,31 @@ def generate_schedule():
 
     data = request.get_json(silent=True) or {}
     target_date_str = data.get("date")
-    mode = data.get("mode", "normal")  # light / normal / intense
+    mode = data.get("mode", "normal")  # light / normal / intense / auto
+
+    # Auto mode: Gucci decides based on recent data
+    if mode == "auto":
+        from backend.models import MoodEntry, HabitLog
+        week_ago = date.today() - timedelta(days=7)
+
+        # Check recent mood average
+        moods = MoodEntry.query.filter(MoodEntry.date >= week_ago).all()
+        avg_mood = sum(m.mood for m in moods) / len(moods) if moods else 3
+
+        # Check habit completion rate
+        logs = HabitLog.query.filter(HabitLog.date >= week_ago).all()
+        if logs:
+            done_rate = sum(1 for l in logs if l.completed) / len(logs)
+        else:
+            done_rate = 0.5
+
+        # Decide
+        if avg_mood >= 4 and done_rate >= 0.7:
+            mode = "intense"  # user is doing great, push harder
+        elif avg_mood <= 2 or done_rate <= 0.3:
+            mode = "light"  # user is struggling, go easy
+        else:
+            mode = "normal"
     tomorrow = date.fromisoformat(target_date_str) if target_date_str else date.today() + timedelta(days=1)
 
     # Build context for AI
