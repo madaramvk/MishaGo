@@ -88,7 +88,27 @@ export default function DayCanvas() {
         <button className="swipe-btn" onClick={() => swipe(-1)}>◀</button>
         <span className="day-title">{dayName} · {monthDay}</span>
         <button className="swipe-btn" onClick={() => swipe(1)}>▶</button>
+        {blocks.length > 0 && !generating && (
+          <button className="header-regen" onClick={() => setShowModeSelect(!showModeSelect)}>🔄</button>
+        )}
       </div>
+
+      {showModeSelect && (
+        <div className="mode-select">
+          <button className="mode-btn light" onClick={() => generateSchedule("light")}>
+            🌿 Light
+            <span className="mode-desc">fewer tasks</span>
+          </button>
+          <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
+            ⚖️ Balanced
+            <span className="mode-desc">steady</span>
+          </button>
+          <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
+            🔥 Intense
+            <span className="mode-desc">push hard</span>
+          </button>
+        </div>
+      )}
 
       <div className="timeline-grid">
         {ROWS.map((row) => {
@@ -147,30 +167,6 @@ export default function DayCanvas() {
         </div>
       )}
 
-      {!generating && blocks.length > 0 && (
-        <div className="regen-row">
-          <button className="regen-btn" onClick={() => setShowModeSelect(!showModeSelect)}>
-            🔄 Replan
-          </button>
-        </div>
-      )}
-
-      {showModeSelect && (
-        <div className="mode-select">
-          <button className="mode-btn light" onClick={() => generateSchedule("light")}>
-            🌿 Light
-            <span className="mode-desc">fewer tasks, more rest</span>
-          </button>
-          <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
-            ⚖️ Balanced
-            <span className="mode-desc">steady progress</span>
-          </button>
-          <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
-            🔥 Intense
-            <span className="mode-desc">push harder today</span>
-          </button>
-        </div>
-      )}
     </div>
   );
 }

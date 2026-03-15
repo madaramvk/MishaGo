@@ -1,7 +1,7 @@
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,30 +10,78 @@
 }
 
 .popup-card {
-  background: var(--bg-card);
+  background: var(--bg-card, #252030);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--text-hint);
   border-radius: 24px;
   padding: 24px;
-  width: 80%;
+  width: 85%;
   max-width: 320px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg, var(--shadow));
 }
 
-.popup-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.popup-time { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.popup-type {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
 
-.popup-actions { display: flex; gap: 12px; }
+.popup-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-family: var(--font-display, inherit);
+}
+
+.popup-time {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.popup-status {
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 8px;
+}
 
 .popup-btn {
   flex: 1;
   padding: 12px;
   border-radius: 16px;
   border: none;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  font-family: var(--font-body, inherit);
+  transition: transform 0.2s ease;
 }
 
-.popup-btn.chat { background: var(--accent-soft); color: var(--text); }
-.popup-btn.done { background: rgba(157, 214, 163, 0.2); color: var(--color-health); }
+.popup-btn:active { transform: scale(0.95); }
+
+.popup-btn.chat {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.popup-btn.done {
+  background: rgba(157, 214, 163, 0.2);
+  color: #9DD6A3;
+}
+
+.popup-btn.close {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--text-hint);
+}
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
