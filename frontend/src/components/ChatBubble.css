@@ -1,7 +1,7 @@
 .chat-bubble {
   display: flex;
-  margin: 8px 16px;
-  animation: fadeUp 0.3s ease;
+  margin: 6px 16px;
+  animation: bubbleIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .chat-bubble.gucci {
@@ -13,43 +13,62 @@
 }
 
 .bubble-content {
-  max-width: 80%;
+  max-width: 82%;
   padding: 12px 16px;
   border-radius: 20px;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Gucci's bubble — frosted glass with subtle accent border */
+.chat-bubble.gucci .bubble-content {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text);
+  border: 1px solid var(--text-hint);
+  border-bottom-left-radius: 6px;
   box-shadow: var(--shadow);
 }
 
-.chat-bubble.gucci .bubble-content {
-  background: var(--bg-card);
-  color: var(--text);
-  border-bottom-left-radius: 6px;
-}
-
+/* User's bubble — warm accent glass */
 .chat-bubble.user .bubble-content {
-  background: var(--accent-soft);
+  background: linear-gradient(135deg,
+    rgba(184, 154, 219, 0.18),
+    rgba(212, 165, 116, 0.12)
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: var(--text);
+  border: 1px solid rgba(184, 154, 219, 0.2);
   border-bottom-right-radius: 6px;
 }
 
 .cursor {
-  animation: blink 1s infinite;
-  color: var(--accent);
+  display: inline-block;
+  width: 2px;
+  height: 16px;
+  background: var(--accent);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 0.8s step-end infinite;
 }
 
-@keyframes blink {
+@keyframes cursorBlink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
 
-@keyframes fadeUp {
+@keyframes bubbleIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }

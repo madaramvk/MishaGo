@@ -1,51 +1,270 @@
-.gucci-container {
+.gucci-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   position: relative;
+  padding: 20px 0 8px;
+  user-select: none;
 }
 
-.gucci-aura {
+/* ---- Aura rings ---- */
+.gucci-aura-outer {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--aura, #9ABFDB) 0%, transparent 65%);
+  opacity: 0.12;
+  animation: auraOuter 5s ease-in-out infinite alternate;
+  filter: blur(8px);
+}
+
+.gucci-aura-inner {
   position: absolute;
   width: 120px;
   height: 120px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
-  animation: pulse 3s ease-in-out infinite;
+  background: radial-gradient(circle, var(--aura, #9ABFDB) 0%, transparent 60%);
+  opacity: 0.08;
+  animation: auraInner 3.5s ease-in-out infinite alternate;
+  filter: blur(4px);
 }
 
-.gucci-body {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow);
+@keyframes auraOuter {
+  0% { transform: translate(-50%, -55%) scale(1); opacity: 0.1; }
+  100% { transform: translate(-50%, -55%) scale(1.15); opacity: 0.16; }
+}
+@keyframes auraInner {
+  0% { transform: translate(-50%, -55%) scale(1); opacity: 0.06; }
+  100% { transform: translate(-50%, -55%) scale(1.1); opacity: 0.12; }
+}
+
+/* ---- Spirit body ---- */
+.gucci-spirit {
   position: relative;
-  z-index: 1;
-  transition: transform 0.3s ease;
+  z-index: 2;
+  width: 80px;
+  height: 80px;
+  animation: float 4s ease-in-out infinite;
 }
 
-.gucci-body:active {
-  transform: scale(0.95);
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
+.gucci-spirit:active {
+  animation: none;
+  transform: scale(0.92);
+}
+
+/* ---- Ears ---- */
+.ear {
+  position: absolute;
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(160deg, #D8C8E8, #C0AAD4);
+  border-radius: 50% 50% 40% 40%;
+  top: -20px;
+}
+
+[data-theme="dark"] .ear {
+  background: linear-gradient(160deg, #3D3450, #2E2640);
+}
+
+.ear-left {
+  left: 12px;
+  transform: rotate(-15deg);
+}
+.ear-right {
+  right: 12px;
+  transform: rotate(15deg);
+}
+
+/* Inner ear pink */
+.ear::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 18px;
+  background: rgba(219, 160, 170, 0.35);
+  border-radius: 50%;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---- Face circle ---- */
 .gucci-face {
-  font-size: 48px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #E8DCF0, #D0C0DE);
+  position: relative;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.05),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
 }
 
-.gucci-name {
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 700;
+[data-theme="dark"] .gucci-face {
+  background: linear-gradient(145deg, #2A2438, #221E30);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 3px rgba(255, 255, 255, 0.05);
+}
+
+/* ---- Eyes ---- */
+.eye {
+  position: absolute;
+  width: 14px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  top: 28px;
+}
+
+[data-theme="dark"] .eye {
+  background: #E8E0F0;
+}
+
+.eye-left { left: 20px; }
+.eye-right { right: 20px; }
+
+.pupil {
+  width: 8px;
+  height: 9px;
+  background: #2C2430;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: blink 4s ease-in-out infinite;
+}
+
+.pupil::after {
+  content: '';
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+
+.pupil.sleepy {
+  height: 4px;
+  bottom: 5px;
+}
+
+@keyframes blink {
+  0%, 95%, 100% { transform: translateX(-50%) scaleY(1); }
+  97% { transform: translateX(-50%) scaleY(0.1); }
+}
+
+/* ---- Nose ---- */
+.nose {
+  position: absolute;
+  width: 8px;
+  height: 5px;
+  background: #C49A9A;
+  border-radius: 50%;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---- Mouth ---- */
+.mouth {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 6px;
+  border-bottom: 2px solid #C49A9A;
+  border-radius: 0 0 50% 50%;
+}
+
+.mouth-happy {
+  width: 16px;
+  height: 8px;
+  border-bottom-width: 2.5px;
+}
+
+.mouth-concerned {
+  border-radius: 50% 50% 0 0;
+  border-bottom: none;
+  border-top: 2px solid #C49A9A;
+  height: 4px;
+}
+
+.mouth-sleepy {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #C49A9A;
+  border-radius: 50%;
+  background: rgba(196, 154, 154, 0.1);
+}
+
+/* ---- Whiskers ---- */
+.whisker {
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background: rgba(196, 154, 154, 0.4);
+  top: 45px;
+}
+
+.wl1 { left: -8px; transform: rotate(-8deg); }
+.wl2 { left: -6px; top: 49px; transform: rotate(8deg); }
+.wr1 { right: -8px; transform: rotate(8deg); }
+.wr2 { right: -6px; top: 49px; transform: rotate(-8deg); }
+
+/* ---- Name label ---- */
+.gucci-label {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
   color: var(--text-muted);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.15); opacity: 0.3; }
+/* ---- Floating particles ---- */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.p1 { top: 15%; left: 25%; animation: particleFloat 6s 0s ease-in-out infinite; }
+.p2 { top: 30%; right: 20%; animation: particleFloat 7s 1.5s ease-in-out infinite; }
+.p3 { bottom: 25%; left: 30%; animation: particleFloat 5s 3s ease-in-out infinite; width: 2px; height: 2px; }
+.p4 { top: 20%; right: 35%; animation: particleFloat 8s 2s ease-in-out infinite; width: 2px; height: 2px; }
+.p5 { bottom: 35%; right: 25%; animation: particleFloat 6s 4s ease-in-out infinite; }
+
+@keyframes particleFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
+  20% { opacity: 0.4; }
+  50% { opacity: 0.6; transform: translateY(-20px) scale(1); }
+  80% { opacity: 0.3; }
 }

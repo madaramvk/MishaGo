@@ -3,8 +3,13 @@
   flex-direction: column;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
+/* ==========================================
+   GREENHOUSE GARDEN BACKGROUND
+   Layered depth: sky → glass panels → plants
+   ========================================== */
 .garden {
   position: fixed;
   top: 0;
@@ -13,58 +18,139 @@
   bottom: 0;
   z-index: 0;
   background: var(--bg);
-  /* Garden stages add layers via additional CSS classes */
 }
 
-.garden-stage-0 { /* bare earth — just bg color */ }
-.garden-stage-1 { background-image: radial-gradient(ellipse at 30% 80%, rgba(157, 214, 163, 0.1) 0%, transparent 50%); }
-.garden-stage-2 { background-image: radial-gradient(ellipse at 30% 80%, rgba(157, 214, 163, 0.1) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(196, 168, 224, 0.08) 0%, transparent 30%); }
-/* Stages 3-9: progressively richer gradients — detailed in design phase */
+/* Base atmosphere */
+.garden::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Warm light filtering through glass roof */
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 50%),
+    /* Ground-level moss glow */
+    radial-gradient(ellipse at 30% 95%, var(--leaf-green) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 90%, var(--moss-green) 0%, transparent 35%),
+    /* Side ambient light */
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 30%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 30%);
+}
 
+/* Glass panel grid lines (very subtle) */
+.garden::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    /* Vertical glass frames */
+    linear-gradient(90deg,
+      transparent 24%, var(--greenhouse-frame) 24.5%, transparent 25%,
+      transparent 49%, var(--greenhouse-frame) 49.5%, transparent 50%,
+      transparent 74%, var(--greenhouse-frame) 74.5%, transparent 75%
+    ),
+    /* Horizontal glass frames */
+    linear-gradient(180deg,
+      transparent 32%, var(--greenhouse-frame) 32.3%, transparent 32.6%,
+      transparent 65%, var(--greenhouse-frame) 65.3%, transparent 65.6%
+    );
+  opacity: 0.5;
+}
+
+/* Garden stage 0-9: progressively richer */
+.garden-stage-0 { /* bare — just ambient light */ }
+
+.garden-stage-1::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 90%, var(--leaf-green) 0%, transparent 35%),
+    radial-gradient(ellipse at 80% 85%, var(--moss-green) 0%, transparent 30%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 30%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 30%);
+}
+
+.garden-stage-2::before,
+.garden-stage-3::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--accent-soft) 0%, transparent 50%),
+    radial-gradient(ellipse at 15% 85%, var(--leaf-green) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 80%, var(--moss-green) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 92%, var(--leaf-green) 0%, transparent 25%),
+    radial-gradient(ellipse at 0% 50%, var(--greenhouse-glass) 0%, transparent 30%),
+    radial-gradient(ellipse at 100% 50%, var(--greenhouse-glass) 0%, transparent 30%);
+}
+
+/* All content above garden */
 .gucci-home > *:not(.garden) {
   position: relative;
   z-index: 1;
 }
 
+/* ==========================================
+   CHAT AREA
+   ========================================== */
 .chat-area {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 0;
-  max-height: 40vh;
+  padding: 8px 0;
+  max-height: 38vh;
+  mask-image: linear-gradient(transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(transparent, black 8%, black 92%, transparent);
 }
 
+/* ==========================================
+   HABIT CHIPS — organic pill shapes
+   ========================================== */
 .habit-row {
   display: flex;
   gap: 8px;
   justify-content: center;
-  padding: 8px 16px;
+  padding: 6px 16px;
   flex-wrap: wrap;
 }
 
 .habit-chip {
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 1.5px solid var(--text-hint);
-  background: var(--bg-card);
+  padding: 8px 18px;
+  border-radius: 24px;
+  border: 1px solid var(--text-hint);
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--text);
-  font-size: 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.habit-chip:active {
+  transform: scale(0.94);
 }
 
 .habit-chip.done {
   background: var(--accent-soft);
   border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-soft);
 }
 
+/* ==========================================
+   CHAT INPUT — frosted glass bar
+   ========================================== */
 .chat-input-bar {
   display: flex;
   gap: 8px;
-  padding: 12px 16px;
-  background: var(--bg-card);
-  border-radius: 24px;
-  margin: 8px 16px;
-  box-shadow: var(--shadow);
+  padding: 10px 16px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  margin: 6px 16px 8px;
+  border: 1px solid var(--text-hint);
+  transition: border-color 0.3s ease;
+}
+
+.chat-input-bar:focus-within {
+  border-color: var(--accent);
 }
 
 .chat-input {
@@ -73,12 +159,14 @@
   background: transparent;
   color: var(--text);
   font-size: 15px;
-  font-family: inherit;
+  font-family: var(--font-body);
   outline: none;
+  font-weight: 400;
 }
 
 .chat-input::placeholder {
   color: var(--text-hint);
+  font-style: italic;
 }
 
 .send-btn {
@@ -86,17 +174,22 @@
   height: 36px;
   border-radius: 50%;
   border: none;
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
   color: white;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .send-btn:active {
-  transform: scale(0.9);
+  transform: scale(0.88);
 }
 
 .send-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.35;
+  cursor: not-allowed;
 }
