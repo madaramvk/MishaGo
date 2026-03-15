@@ -306,13 +306,15 @@
   min-width: 40px;
 }
 
-/* Bubble container — spread horizontally so they don't overlap */
-.track-bubbles {
+/* Bubbles row — sits above the timeline, evenly spaced */
+.bubble-row {
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 6px;
-  margin-bottom: 6px;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 0 8px;
+  flex: 1;
+  align-items: center;
 }
 
 /* Dot — hidden per user request */

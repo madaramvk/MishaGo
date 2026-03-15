@@ -80,39 +80,46 @@ export default function DayCanvas() {
       </div>
 
       <div className="timeline-grid">
-        {ROWS.map((row) => (
-          <div key={row.period} className={`timeline-row ${row.period}`}>
-            <div className="row-label">{row.label}</div>
-            <div className="row-track">
-              <div className="track-line" />
-              <div className="track-points">
-                {row.hours.map((h) => {
-                  const hourBlocks = blocksByHour[h] || [];
-                  const isBusy = hourBlocks.length > 0;
-                  return (
-                    <div key={h} className={`track-point ${isBusy ? "busy" : ""}`}>
-                      {isBusy && (
-                        <div className="track-bubbles">
-                          {hourBlocks.map((b) => (
-                            <TimeBubble
-                              key={b.id}
-                              block={b}
-                              directionColor={getDirColor(b.direction_id)}
-                              onDone={handleDone}
-                              onChat={handleChat}
-                            />
-                          ))}
-                        </div>
-                      )}
-                      <div className="track-dot" />
+        {ROWS.map((row) => {
+          // Collect all bubbles for this row
+          const rowBubbles = [];
+          row.hours.forEach((h) => {
+            (blocksByHour[h] || []).forEach((b) => rowBubbles.push(b));
+          });
+
+          return (
+            <div key={row.period} className={`timeline-row ${row.period}`}>
+              <div className="row-label">{row.label}</div>
+
+              {/* Bubbles row — evenly spaced, independent of hour positions */}
+              {rowBubbles.length > 0 && (
+                <div className="bubble-row">
+                  {rowBubbles.map((b) => (
+                    <TimeBubble
+                      key={b.id}
+                      block={b}
+                      directionColor={getDirColor(b.direction_id)}
+                      onDone={handleDone}
+                      onChat={handleChat}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Hour markers on the line */}
+              <div className="row-track">
+                <div className="track-line" />
+                <div className="track-points">
+                  {row.hours.map((h) => (
+                    <div key={h} className={`track-point ${blocksByHour[h] ? "busy" : ""}`}>
                       <span className="track-hour">{h === 0 ? "0" : h}</span>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {blocks.length === 0 && (
