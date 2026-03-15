@@ -1,0 +1,37 @@
+.mood-picker {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px 16px;
+}
+
+.mood-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--text-hint);
+  background: var(--bg-card);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text);
+}
+
+.mood-bubble:hover,
+.mood-bubble.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: scale(1.1);
+}
+
+.mood-emoji {
+  font-size: 24px;
+}
+
+.mood-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
