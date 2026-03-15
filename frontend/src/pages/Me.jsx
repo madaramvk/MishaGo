@@ -87,41 +87,6 @@ export default function Me({ theme, setTheme }) {
         </div>
       </div>
 
-      <h2>Settings</h2>
-
-      <div className="settings-list">
-        <div className="setting-row" onClick={toggleTheme}>
-          <span>Theme</span>
-          <span className="setting-value">{theme === "dark" ? "🌙 Dark" : "☀️ Light"}</span>
-        </div>
-        <div className="setting-row" onClick={toggleLang}>
-          <span>Language</span>
-          <span className="setting-value">{settings.language === "ru" ? "🇷🇺 RU" : "🇬🇧 EN"}</span>
-        </div>
-        <div className="setting-row">
-          <span>Wake time</span>
-          <input
-            className="setting-input"
-            type="time"
-            value={settings.wake_time || "07:00"}
-            onChange={(e) => updateSetting("wake_time", e.target.value)}
-          />
-        </div>
-        <div className="setting-row api-key-row">
-          <span>API Key</span>
-          <div className="api-key-input">
-            <input
-              className="setting-input"
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="sk-ant-..."
-            />
-            <button className="save-btn" onClick={saveApiKey}>Save</button>
-          </div>
-        </div>
-      </div>
-
       {/* Gucci's Mind — debug/insight panel */}
       <h2
         className="mind-toggle"
@@ -184,7 +149,7 @@ export default function Me({ theme, setTheme }) {
                   <div className="mind-insight-text">{ins.content}</div>
                 </div>
               ))}
-              {mind.insights.length === 0 && <div className="mind-empty">No patterns detected yet — keep using the app</div>}
+              {mind.insights.length === 0 && <div className="mind-empty">No patterns detected yet</div>}
             </div>
           </div>
 
@@ -193,6 +158,41 @@ export default function Me({ theme, setTheme }) {
           </div>
         </div>
       )}
+
+      <h2>Settings</h2>
+
+      <div className="settings-list">
+        <div className="setting-row" onClick={toggleTheme}>
+          <span>Theme</span>
+          <span className="setting-value">{theme === "dark" ? "🌙 Dark" : "☀️ Light"}</span>
+        </div>
+        <div className="setting-row" onClick={toggleLang}>
+          <span>Language</span>
+          <span className="setting-value">{settings.language === "ru" ? "🇷🇺 RU" : "🇬🇧 EN"}</span>
+        </div>
+        <div className="setting-row">
+          <span>Wake time</span>
+          <input
+            className="setting-input"
+            type="time"
+            value={settings.wake_time || "07:00"}
+            onChange={(e) => updateSetting("wake_time", e.target.value)}
+          />
+        </div>
+        <div className="setting-row api-key-row">
+          <span>API Key</span>
+          <div className="api-key-input">
+            <input
+              className="setting-input"
+              type="password"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              placeholder="sk-ant-..."
+            />
+            <button className="save-btn" onClick={saveApiKey}>Save</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
