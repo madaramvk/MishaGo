@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { fetchJSON } from "../api";
 import GoalCard from "../components/GoalCard";
 import "./Goals.css";
@@ -7,24 +7,31 @@ export default function Goals() {
   const [directions, setDirections] = useState([]);
   const [goals, setGoals] = useState([]);
   const [steps, setSteps] = useState({});
-  const [mode, setMode] = useState("direction"); // "direction" | "daily"
+  const [mode, setMode] = useState("direction");
 
-  useEffect(() => {
-    fetchJSON("/directions").then(setDirections);
-    fetchJSON("/goals").then(async (goals) => {
-      setGoals(goals);
-      const stepsMap = {};
-      for (const g of goals) {
-        const s = await fetchJSON(`/goals/${g.id}/steps`);
-        stepsMap[g.id] = s;
-      }
-      setSteps(stepsMap);
-    });
+  const loadData = useCallback(async () => {
+    const dirs = await fetchJSON("/directions");
+    setDirections(dirs);
+    const goalsData = await fetchJSON("/goals");
+    setGoals(goalsData);
+    const stepsMap = {};
+    for (const g of goalsData) {
+      stepsMap[g.id] = await fetchJSON(`/goals/${g.id}/steps`);
+    }
+    setSteps(stepsMap);
   }, []);
 
-  const getNextStep = (goalId) => {
-    const goalSteps = steps[goalId] || [];
-    return goalSteps.find((s) => s.status !== "done");
+  useEffect(() => { loadData(); }, []);
+
+  const handleStepUpdate = async () => {
+    // Reload goals (progress recalculated) and steps
+    const goalsData = await fetchJSON("/goals");
+    setGoals(goalsData);
+    const stepsMap = {};
+    for (const g of goalsData) {
+      stepsMap[g.id] = await fetchJSON(`/goals/${g.id}/steps`);
+    }
+    setSteps(stepsMap);
   };
 
   const getDirection = (dirId) => directions.find((d) => d.id === dirId);
@@ -55,7 +62,8 @@ export default function Goals() {
                   key={g.id}
                   goal={g}
                   direction={dir}
-                  nextStep={getNextStep(g.id)}
+                  steps={steps[g.id] || []}
+                  onStepUpdate={handleStepUpdate}
                 />
               ))}
             </div>
@@ -64,11 +72,18 @@ export default function Goals() {
       ) : (
         <div className="daily-board">
           {goals.map((g) => {
-            const next = getNextStep(g.id);
-            if (!next) return null;
+            const goalSteps = steps[g.id] || [];
+            const hasIncomplete = goalSteps.some((s) => s.status !== "done");
+            if (!hasIncomplete) return null;
             const dir = getDirection(g.direction_id);
             return (
-              <GoalCard key={g.id} goal={g} direction={dir} nextStep={next} />
+              <GoalCard
+                key={g.id}
+                goal={g}
+                direction={dir}
+                steps={goalSteps}
+                onStepUpdate={handleStepUpdate}
+              />
             );
           })}
         </div>
