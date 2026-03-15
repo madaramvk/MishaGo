@@ -1,0 +1,51 @@
+.gucci-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.gucci-aura {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.gucci-body {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.gucci-body:active {
+  transform: scale(0.95);
+}
+
+.gucci-face {
+  font-size: 48px;
+}
+
+.gucci-name {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 0.3; }
+}
