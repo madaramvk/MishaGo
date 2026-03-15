@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { fetchJSON } from "../api";
 import useChat from "../hooks/useChat";
 import Gucci from "../components/Gucci";
@@ -10,7 +10,13 @@ export default function GucciHome() {
   const [pet, setPet] = useState({ mood: "content", garden_stage: 0, xp: 0 });
   const [habits, setHabits] = useState([]);
   const [habitLogs, setHabitLogs] = useState({});
-  const { messages, streaming, loadHistory, send } = useChat("general");
+  const handleSetupComplete = useCallback(() => {
+    // Onboarding done — reload everything
+    fetchJSON("/pet").then(setPet).catch(console.error);
+    fetchJSON("/habits?today=true").then(setHabits).catch(console.error);
+  }, []);
+
+  const { messages, streaming, loadHistory, send } = useChat("general", null, handleSetupComplete);
   const [input, setInput] = useState("");
   const chatEndRef = useRef(null);
 

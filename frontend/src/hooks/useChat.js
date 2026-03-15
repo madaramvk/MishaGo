@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef } from "react";
 import { fetchJSON, streamSSE } from "../api";
 
-export default function useChat(contextType = "general", goalId = null) {
+export default function useChat(contextType = "general", goalId = null, onSetupComplete = null) {
   const [messages, setMessages] = useState([]);
   const [streaming, setStreaming] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,9 +54,10 @@ export default function useChat(contextType = "general", goalId = null) {
           return updated;
         });
         setStreaming(false);
-      }
+      },
+      onSetupComplete
     );
-  }, [streaming, goalId]);
+  }, [streaming, goalId, onSetupComplete]);
 
   const stop = useCallback(() => {
     sourceRef.current?.close();

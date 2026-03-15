@@ -1,8 +1,92 @@
 import json
+import re
 import anthropic
 from flask import Blueprint, Response, jsonify, request, stream_with_context, current_app
-from backend.models import db, ChatMessage, Setting
+from backend.models import db, ChatMessage, Setting, Direction, Goal, Habit
 from backend.ai_coach import build_messages
+
+
+def process_setup_ready(text, app):
+    """Parse SETUP_READY line and create goals/habits/settings."""
+    match = re.search(r'SETUP_READY:\s*(.+)$', text, re.MULTILINE)
+    if not match:
+        return False
+
+    raw = match.group(1)
+
+    with app.app_context():
+        # Parse name
+        name_match = re.search(r'name=([^,]+)', raw)
+        if name_match:
+            name = name_match.group(1).strip()
+            setting = Setting.query.get("name")
+            if setting:
+                setting.value = name
+            else:
+                db.session.add(Setting(key="name", value=name))
+
+        # Parse wake time
+        wake_match = re.search(r'wake=(\d{2}:\d{2})', raw)
+        if wake_match:
+            wake = wake_match.group(1)
+            setting = Setting.query.get("wake_time")
+            if setting:
+                setting.value = wake
+            else:
+                db.session.add(Setting(key="wake_time", value=wake))
+
+        # Parse goals
+        goals_match = re.search(r'goals=\[([^\]]+)\]', raw)
+        if goals_match:
+            goal_names = [g.strip() for g in goals_match.group(1).split(',')]
+            career_dir = Direction.query.filter_by(name="Career").first()
+            for gname in goal_names:
+                if gname:
+                    db.session.add(Goal(
+                        title=gname,
+                        direction_id=career_dir.id if career_dir else 1,
+                        created_by="gucci",
+                    ))
+
+        # Parse habits
+        habits_match = re.search(r'habits=\[([^\]]+)\]', raw)
+        if habits_match:
+            habit_names = [h.strip() for h in habits_match.group(1).split(',')]
+            health_dir = Direction.query.filter_by(name="Health").first()
+            mind_dir = Direction.query.filter_by(name="Mind").first()
+            xp_map = {"tiny": 3, "small": 5, "medium": 10}
+            for hname in habit_names:
+                if not hname:
+                    continue
+                # Guess direction from keywords
+                lower = hname.lower()
+                if any(w in lower for w in ['зарядк', 'workout', 'спорт', 'упражн', 'физ']):
+                    dir_id = health_dir.id if health_dir else 2
+                    icon = "💪"
+                elif any(w in lower for w in ['чтен', 'read', 'книг']):
+                    dir_id = mind_dir.id if mind_dir else 3
+                    icon = "📚"
+                elif any(w in lower for w in ['фокус', 'focus', 'концентр']):
+                    dir_id = mind_dir.id if mind_dir else 3
+                    icon = "🧠"
+                else:
+                    dir_id = 4  # Life
+                    icon = "✨"
+                db.session.add(Habit(
+                    name=hname, direction_id=dir_id, icon=icon,
+                    difficulty="small", xp_reward=5, frequency="daily",
+                ))
+
+        # Mark onboarded
+        onboarded = Setting.query.get("onboarded")
+        if onboarded:
+            onboarded.value = "true"
+        else:
+            db.session.add(Setting(key="onboarded", value="true"))
+
+        db.session.commit()
+
+    return True
 
 bp = Blueprint("chat", __name__, url_prefix="/api/chat")
 
@@ -59,11 +143,19 @@ def stream_chat():
 
             # Save Gucci's response
             with app.app_context():
+                # Strip SETUP_READY line from visible message
+                visible = re.sub(r'\s*SETUP_READY:.*$', '', full_response, flags=re.MULTILINE).strip()
                 gucci_msg = ChatMessage(
-                    role="gucci", content=full_response, context_type="general"
+                    role="gucci", content=visible, context_type="general"
                 )
                 db.session.add(gucci_msg)
                 db.session.commit()
+
+                # Check for onboarding completion
+                setup_done = process_setup_ready(full_response, app)
+
+            if setup_done:
+                yield f"data: {json.dumps({'setup_complete': True})}\n\n"
             yield f"data: {json.dumps({'done': True})}\n\n"
         except Exception as e:
             import traceback
