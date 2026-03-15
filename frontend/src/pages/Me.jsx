@@ -9,6 +9,8 @@ export default function Me({ theme, setTheme }) {
   const [moods, setMoods] = useState([]);
   const [pet, setPet] = useState({});
   const [apiKey, setApiKey] = useState("");
+  const [mind, setMind] = useState(null);
+  const [mindOpen, setMindOpen] = useState(false);
 
   useEffect(() => {
     fetchJSON("/settings").then((s) => {
@@ -18,6 +20,12 @@ export default function Me({ theme, setTheme }) {
     fetchJSON("/mood?days=7").then(setMoods);
     fetchJSON("/pet").then(setPet);
   }, []);
+
+  useEffect(() => {
+    if (mindOpen && !mind) {
+      fetchJSON("/pet/mind").then(setMind).catch(console.error);
+    }
+  }, [mindOpen]);
 
   const updateSetting = async (key, value) => {
     await fetchJSON("/settings", {
@@ -113,6 +121,78 @@ export default function Me({ theme, setTheme }) {
           </div>
         </div>
       </div>
+
+      {/* Gucci's Mind — debug/insight panel */}
+      <h2
+        className="mind-toggle"
+        onClick={() => setMindOpen(!mindOpen)}
+      >
+        Gucci's Mind {mindOpen ? "▾" : "▸"}
+      </h2>
+
+      {mindOpen && mind && (
+        <div className="mind-panel">
+          <div className="mind-section">
+            <div className="mind-label">Profile</div>
+            <div className="mind-data">
+              {Object.entries(mind.profile).map(([k, v]) => (
+                <div key={k} className="mind-row">
+                  <span className="mind-key">{k}</span>
+                  <span className="mind-val">{v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mind-section">
+            <div className="mind-label">Mood Reasoning</div>
+            <div className="mind-mono">{mind.mood_reasoning}</div>
+          </div>
+
+          <div className="mind-section">
+            <div className="mind-label">Goals ({mind.goals.length})</div>
+            <div className="mind-data">
+              {mind.goals.map((g, i) => (
+                <div key={i} className="mind-row">
+                  <span className="mind-val">{g.title}</span>
+                  <span className="mind-tag">{g.progress}% · by {g.created_by}</span>
+                </div>
+              ))}
+              {mind.goals.length === 0 && <div className="mind-empty">No goals yet</div>}
+            </div>
+          </div>
+
+          <div className="mind-section">
+            <div className="mind-label">Habits ({mind.habits.length})</div>
+            <div className="mind-data">
+              {mind.habits.map((h, i) => (
+                <div key={i} className="mind-row">
+                  <span className="mind-val">{h.icon} {h.name}</span>
+                  <span className="mind-tag">{h.frequency}</span>
+                </div>
+              ))}
+              {mind.habits.length === 0 && <div className="mind-empty">No habits yet</div>}
+            </div>
+          </div>
+
+          <div className="mind-section">
+            <div className="mind-label">Shadow Insights ({mind.insights.length})</div>
+            <div className="mind-data">
+              {mind.insights.map((ins, i) => (
+                <div key={i} className="mind-insight">
+                  <div className="mind-insight-type">{ins.type} · {(ins.confidence * 100).toFixed(0)}%</div>
+                  <div className="mind-insight-text">{ins.content}</div>
+                </div>
+              ))}
+              {mind.insights.length === 0 && <div className="mind-empty">No patterns detected yet — keep using the app</div>}
+            </div>
+          </div>
+
+          <div className="mind-section">
+            <div className="mind-label">Total conversations: {mind.total_conversations}</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

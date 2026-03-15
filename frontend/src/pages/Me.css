@@ -93,3 +93,104 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+/* ---- Gucci's Mind ---- */
+.mind-toggle {
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.mind-toggle:hover { opacity: 1; }
+
+.mind-panel {
+  background: var(--bg-card);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  animation: mindSlide 0.3s ease;
+}
+
+@keyframes mindSlide {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mind-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--text-hint);
+}
+.mind-section:last-child { border-bottom: none; }
+
+.mind-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.mind-data {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mind-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.mind-key {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.mind-val {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.mind-tag {
+  font-size: 11px;
+  color: var(--text-hint);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.mind-mono {
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--text-muted);
+  background: var(--bg-deep, var(--bg));
+  padding: 8px 10px;
+  border-radius: 8px;
+  word-break: break-all;
+}
+
+.mind-empty {
+  font-size: 12px;
+  color: var(--text-hint);
+  font-style: italic;
+}
+
+.mind-insight {
+  padding: 6px 0;
+}
+
+.mind-insight-type {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.mind-insight-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
