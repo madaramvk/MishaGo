@@ -4,8 +4,9 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-  padding: 16px 0 4px;
+  padding: 24px 0 8px;
   user-select: none;
+  min-height: 220px;
 }
 
 /* ---- Glow behind character — makes it pop from any background ---- */
@@ -36,8 +37,8 @@
 .gucci-character {
   position: relative;
   z-index: 2;
-  width: 120px;
-  height: 170px;
+  width: 140px;
+  height: 190px;
   animation: characterFloat 5s ease-in-out infinite;
 }
 
@@ -54,8 +55,8 @@
 /* ---- EARS ---- */
 .ear {
   position: absolute;
-  width: 22px;
-  height: 42px;
+  width: 26px;
+  height: 48px;
   background: linear-gradient(170deg, #C8B8D8, #A898B8);
   border-radius: 50% 50% 40% 40%;
   top: -24px;
@@ -66,8 +67,8 @@
   background: linear-gradient(170deg, #4A3E5C, #3A3048);
 }
 
-.ear-l { left: 22px; transform: rotate(-18deg); }
-.ear-r { right: 22px; transform: rotate(18deg); }
+.ear-l { left: 24px; transform: rotate(-18deg); }
+.ear-r { right: 24px; transform: rotate(18deg); }
 
 .ear-inner {
   width: 12px;
@@ -84,8 +85,8 @@
 /* ---- HEAD ---- */
 .head {
   position: absolute;
-  width: 90px;
-  height: 85px;
+  width: 100px;
+  height: 95px;
   border-radius: 50%;
   left: 50%;
   transform: translateX(-50%);
@@ -236,11 +237,11 @@
 /* ---- BODY ---- */
 .body {
   position: absolute;
-  width: 70px;
-  height: 60px;
+  width: 80px;
+  height: 68px;
   left: 50%;
   transform: translateX(-50%);
-  top: 72px;
+  top: 80px;
   z-index: 2;
   background: linear-gradient(170deg, #D0C0DE, #B8A8CA);
   border-radius: 35px 35px 25px 25px;
