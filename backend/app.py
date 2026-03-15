@@ -1,0 +1,25 @@
+from flask import Flask
+from flask_cors import CORS
+from sqlalchemy import text
+from backend.config import Config
+from backend.models import db, seed_defaults
+
+
+def create_app(config=None):
+    app = Flask(__name__)
+    app.config.from_object(config or Config)
+    CORS(app)
+    db.init_app(app)
+
+    with app.app_context():
+        with db.engine.connect() as conn:
+            conn.execute(text("PRAGMA journal_mode=WAL"))
+        db.create_all()
+        seed_defaults(db.session)
+
+    return app
+
+
+if __name__ == "__main__":
+    app = create_app()
+    app.run(debug=True, port=5000)
