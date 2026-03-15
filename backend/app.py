@@ -17,6 +17,9 @@ def create_app(config=None):
         db.create_all()
         seed_defaults(db.session)
 
+        from backend.routes.settings import bp as settings_bp
+        app.register_blueprint(settings_bp)
+
     return app
 
 
