@@ -23,6 +23,9 @@ def create_app(config=None):
         from backend.routes.pet import bp as pet_bp
         app.register_blueprint(pet_bp)
 
+        from backend.routes.habits import bp as habits_bp
+        app.register_blueprint(habits_bp)
+
     return app
 
 
