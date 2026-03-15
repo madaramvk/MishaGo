@@ -88,26 +88,35 @@ export default function DayCanvas() {
         <button className="swipe-btn" onClick={() => swipe(-1)}>◀</button>
         <span className="day-title">{dayName} · {monthDay}</span>
         <button className="swipe-btn" onClick={() => swipe(1)}>▶</button>
-        {blocks.length > 0 && !generating && (
-          <button className="header-regen" onClick={() => setShowModeSelect(!showModeSelect)}>🔄</button>
-        )}
       </div>
 
+      {/* Floating replan button */}
+      {blocks.length > 0 && !generating && (
+        <button className="float-regen" onClick={() => setShowModeSelect(!showModeSelect)}>🔄</button>
+      )}
+
+      {/* Mode selector overlay */}
       {showModeSelect && (
-        <div className="mode-select">
-          <button className="mode-btn auto" onClick={() => generateSchedule("auto")}>
-            🐱 Gucci decides
-            <span className="mode-desc">based on your state</span>
-          </button>
-          <button className="mode-btn light" onClick={() => generateSchedule("light")}>
-            🌿 Light
-          </button>
-          <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
-            ⚖️ Balanced
-          </button>
-          <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
-            🔥 Intense
-          </button>
+        <div className="mode-overlay" onClick={() => setShowModeSelect(false)}>
+          <div className="mode-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="mode-title">How should I plan your day?</div>
+            <button className="mode-btn auto" onClick={() => generateSchedule("auto")}>
+              🐱 Let Gucci decide
+              <span className="mode-desc">based on your mood &amp; habits</span>
+            </button>
+            <button className="mode-btn light" onClick={() => generateSchedule("light")}>
+              🌿 Light day
+              <span className="mode-desc">fewer tasks, more breathing room</span>
+            </button>
+            <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
+              ⚖️ Balanced
+              <span className="mode-desc">steady progress on all goals</span>
+            </button>
+            <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
+              🔥 Push hard
+              <span className="mode-desc">every hour counts, no time to waste</span>
+            </button>
+          </div>
         </div>
       )}
 

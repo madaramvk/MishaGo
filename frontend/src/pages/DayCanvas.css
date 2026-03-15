@@ -10,9 +10,35 @@
   align-items: center;
   gap: 8px;
   padding: 10px 16px;
-  position: relative;
-  z-index: 5;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
 }
+
+/* Floating replan button — always visible bottom-right */
+.float-regen {
+  position: fixed;
+  bottom: 86px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--text-hint);
+  background: var(--bg-card, #252030);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+.float-regen:active { transform: scale(0.9); }
+.float-regen:hover { border-color: var(--accent); }
 
 .day-title { font-size: 18px; font-weight: 700; flex: 1; text-align: center; }
 
@@ -406,18 +432,47 @@
   50% { opacity: 1; }
 }
 
-/* Mode selector — 3 intensity buttons */
-.mode-select {
+/* Mode selector overlay */
+.mode-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
-  gap: 8px;
-  padding: 8px 16px 4px;
+  align-items: flex-end;
   justify-content: center;
-  animation: slideUp 0.25s ease;
+  z-index: 100;
+  animation: fadeIn 0.2s ease;
+}
+
+.mode-panel {
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg-card, #252030);
+  border-radius: 24px 24px 0 0;
+  padding: 20px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slideUp 0.3s ease;
+}
+
+.mode-title {
+  font-family: var(--font-display, inherit);
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
+  color: var(--text);
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .mode-btn {
@@ -425,28 +480,27 @@
   flex-direction: column;
   align-items: center;
   gap: 3px;
-  padding: 10px 16px;
+  padding: 14px 16px;
   border-radius: 16px;
   border: 1px solid var(--text-hint);
-  background: var(--bg-glass, transparent);
+  background: transparent;
   color: var(--text);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: var(--font-body, inherit);
 }
 
-.mode-btn:active { transform: scale(0.95); }
+.mode-btn:active { transform: scale(0.97); }
 
 .mode-btn.auto { border-color: var(--accent); background: var(--accent-soft); }
-.mode-btn.auto:hover { background: rgba(184, 154, 219, 0.2); }
 .mode-btn.light:hover { border-color: #9DD6A3; background: rgba(157, 214, 163, 0.1); }
 .mode-btn.normal:hover { border-color: var(--accent); background: var(--accent-soft); }
 .mode-btn.intense:hover { border-color: #E8845A; background: rgba(232, 132, 90, 0.1); }
 
 .mode-desc {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 400;
-  color: var(--text-hint);
+  color: var(--text-muted);
 }
