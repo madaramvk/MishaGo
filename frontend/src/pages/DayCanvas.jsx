@@ -122,10 +122,16 @@ export default function DayCanvas() {
         })}
       </div>
 
-      {blocks.length === 0 && (
+      {blocks.length === 0 ? (
         <div className="empty-day">
           <button className="generate-btn" onClick={generateSchedule}>
             🔮 Ask Gucci to plan this day
+          </button>
+        </div>
+      ) : (
+        <div className="regen-row">
+          <button className="regen-btn" onClick={generateSchedule}>
+            🔄 Replan
           </button>
         </div>
       )}

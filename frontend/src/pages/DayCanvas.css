@@ -357,3 +357,26 @@
 }
 
 .generate-btn:active { transform: scale(0.95); }
+
+/* Replan button — small, bottom of page */
+.regen-row {
+  display: flex;
+  justify-content: center;
+  padding: 8px 16px 0;
+}
+
+.regen-btn {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--text-hint);
+  background: var(--bg-glass, transparent);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-body, inherit);
+}
+
+.regen-btn:active { transform: scale(0.95); }
+.regen-btn:hover { border-color: var(--accent); color: var(--text); }
