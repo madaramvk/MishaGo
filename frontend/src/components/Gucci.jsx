@@ -13,38 +13,74 @@ export default function Gucci({ mood = "content", onClick }) {
 
   return (
     <div className="gucci-wrap" onClick={onClick}>
-      {/* Aura rings */}
-      <div className="gucci-aura-outer" style={{ "--aura": auraColor }} />
-      <div className="gucci-aura-inner" style={{ "--aura": auraColor }} />
+      {/* Background glow so Gucci pops from any background */}
+      <div className="gucci-glow" style={{ "--aura": auraColor }} />
 
-      {/* Spirit body */}
-      <div className="gucci-spirit">
-        <div className="ear ear-left" />
-        <div className="ear ear-right" />
-        <div className="gucci-face">
-          <div className="eye eye-left">
-            <div className={`pupil ${mood === "sleepy" ? "sleepy" : ""}`} />
+      <div className="gucci-character">
+        {/* Ears */}
+        <div className="ear ear-l">
+          <div className="ear-inner" />
+        </div>
+        <div className="ear ear-r">
+          <div className="ear-inner" />
+        </div>
+
+        {/* Head */}
+        <div className="head">
+          {/* Eyes */}
+          <div className="eye eye-l">
+            <div className={`pupil ${mood === "sleepy" ? "sleepy" : ""}`}>
+              <div className="eye-shine" />
+            </div>
           </div>
-          <div className="eye eye-right">
-            <div className={`pupil ${mood === "sleepy" ? "sleepy" : ""}`} />
+          <div className="eye eye-r">
+            <div className={`pupil ${mood === "sleepy" ? "sleepy" : ""}`}>
+              <div className="eye-shine" />
+            </div>
           </div>
+
+          {/* Nose + mouth */}
           <div className="nose" />
-          <div className={`mouth mouth-${mood}`} />
+          <div className={`mouth mood-${mood}`} />
+
+          {/* Whiskers */}
           <div className="whisker wl1" />
           <div className="whisker wl2" />
           <div className="whisker wr1" />
           <div className="whisker wr2" />
+
+          {/* Cheek blush */}
+          <div className="cheek cheek-l" />
+          <div className="cheek cheek-r" />
         </div>
+
+        {/* Body */}
+        <div className="body">
+          {/* Arms */}
+          <div className="arm arm-l" />
+          <div className="arm arm-r" />
+
+          {/* Belly mark */}
+          <div className="belly" />
+        </div>
+
+        {/* Legs/feet */}
+        <div className="feet">
+          <div className="foot foot-l" />
+          <div className="foot foot-r" />
+        </div>
+
+        {/* Tail */}
+        <div className="tail" />
       </div>
 
       <span className="gucci-label">Gucci</span>
 
       {/* Floating particles */}
-      <div className="particle p1" />
-      <div className="particle p2" />
-      <div className="particle p3" />
-      <div className="particle p4" />
-      <div className="particle p5" />
+      <div className="sparkle s1">✦</div>
+      <div className="sparkle s2">✧</div>
+      <div className="sparkle s3">✦</div>
+      <div className="sparkle s4">✧</div>
     </div>
   );
 }
