@@ -1,0 +1,38 @@
+.goals-page { padding: 16px 0; }
+
+.goals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.goals-header h2 { font-size: 24px; font-weight: 700; }
+
+.mode-toggle {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--text-hint);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.direction-section { margin-bottom: 24px; }
+
+.direction-title {
+  padding: 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--text-muted);
+  font-size: 16px;
+}

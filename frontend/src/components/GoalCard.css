@@ -1,0 +1,45 @@
+.goal-card {
+  padding: 16px;
+  border-radius: 20px;
+  margin: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow);
+}
+
+.goal-card:active { transform: scale(0.98); }
+
+.goal-career { background: rgba(126, 184, 218, var(--bubble-fill)); border: 1.5px solid rgba(126, 184, 218, var(--bubble-border)); }
+.goal-health { background: rgba(157, 214, 163, var(--bubble-fill)); border: 1.5px solid rgba(157, 214, 163, var(--bubble-border)); }
+.goal-mind { background: rgba(196, 168, 224, var(--bubble-fill)); border: 1.5px solid rgba(196, 168, 224, var(--bubble-border)); }
+.goal-life { background: rgba(240, 201, 135, var(--bubble-fill)); border: 1.5px solid rgba(240, 201, 135, var(--bubble-border)); }
+
+.goal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.goal-icon { font-size: 20px; }
+.goal-title { font-weight: 700; font-size: 15px; }
+
+.goal-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--text-hint);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  transition: width 0.5s ease;
+}
+
+.goal-next {
+  font-size: 13px;
+  color: var(--text-muted);
+}
