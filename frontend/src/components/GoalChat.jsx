@@ -60,10 +60,10 @@ export default function GoalChat() {
       </div>
 
       <div className="goal-chat-messages">
-        {messages.length === 0 && (
+        {messages.length === 0 && !streaming && (
           <ChatBubble
             role="gucci"
-            content={`Let's work on "${goal.title}". What would you like to focus on?`}
+            content={`Как у тебя дела с "${goal.title}"? Расскажи, что думаешь об этом 🐱`}
           />
         )}
         {messages.map((m, i) => (

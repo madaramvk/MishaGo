@@ -4,6 +4,14 @@ import { fetchJSON } from "../api";
 import TimeBubble from "../components/TimeBubble";
 import "./DayCanvas.css";
 
+// Split day into rows — each row is a flowing timeline segment
+const ROWS = [
+  { hours: [5, 6, 7, 8, 9, 10], period: "morning", label: "Morning" },
+  { hours: [11, 12, 13, 14, 15], period: "midday", label: "Day" },
+  { hours: [16, 17, 18, 19, 20], period: "evening", label: "Evening" },
+  { hours: [21, 22, 23, 0], period: "night", label: "Night" },
+];
+
 export default function DayCanvas() {
   const [blocks, setBlocks] = useState([]);
   const [directions, setDirections] = useState([]);
@@ -13,8 +21,8 @@ export default function DayCanvas() {
   const dateStr = currentDate.toISOString().split("T")[0];
 
   useEffect(() => {
-    fetchJSON(`/schedule/${dateStr}`).then(setBlocks);
-    fetchJSON("/directions").then(setDirections);
+    fetchJSON(`/schedule/${dateStr}`).then(setBlocks).catch(() => setBlocks([]));
+    fetchJSON("/directions").then(setDirections).catch(() => {});
   }, [dateStr]);
 
   const getDirColor = (dirId) => {
@@ -50,12 +58,11 @@ export default function DayCanvas() {
     fetchJSON(`/schedule/${dateStr}`).then(setBlocks);
   };
 
-  // Build hour slots from 5 to 24
-  const hours = Array.from({ length: 20 }, (_, i) => i + 5);
+  const visibleBlocks = blocks.filter((b) => b.block_type !== "custom");
 
   // Group blocks by start hour
   const blocksByHour = {};
-  blocks.filter((b) => b.block_type !== "custom").forEach((b) => {
+  visibleBlocks.forEach((b) => {
     const hour = parseInt(b.start_time.split(":")[0]);
     if (!blocksByHour[hour]) blocksByHour[hour] = [];
     blocksByHour[hour].push(b);
@@ -72,29 +79,40 @@ export default function DayCanvas() {
         <button className="swipe-btn" onClick={() => swipe(1)}>▶</button>
       </div>
 
-      <div className="time-flow">
-        {hours.map((hour) => {
-          const hourBlocks = blocksByHour[hour] || [];
-          const isBusy = hourBlocks.length > 0;
-          const timeOfDay = hour < 10 ? "morning" : hour < 16 ? "midday" : "evening";
-
-          return (
-            <div key={hour} className={`hour-slot ${timeOfDay} ${isBusy ? "busy" : "free"}`}>
-              <span className="hour-hint">{hour}</span>
-              <div className="hour-content">
-                {hourBlocks.map((b) => (
-                  <TimeBubble
-                    key={b.id}
-                    block={b}
-                    directionColor={getDirColor(b.direction_id)}
-                    onDone={handleDone}
-                    onChat={handleChat}
-                  />
-                ))}
+      <div className="timeline-grid">
+        {ROWS.map((row) => (
+          <div key={row.period} className={`timeline-row ${row.period}`}>
+            <div className="row-label">{row.label}</div>
+            <div className="row-track">
+              <div className="track-line" />
+              <div className="track-points">
+                {row.hours.map((h) => {
+                  const hourBlocks = blocksByHour[h] || [];
+                  const isBusy = hourBlocks.length > 0;
+                  return (
+                    <div key={h} className={`track-point ${isBusy ? "busy" : ""}`}>
+                      {isBusy && (
+                        <div className="track-bubbles">
+                          {hourBlocks.map((b) => (
+                            <TimeBubble
+                              key={b.id}
+                              block={b}
+                              directionColor={getDirColor(b.direction_id)}
+                              onDone={handleDone}
+                              onChat={handleChat}
+                            />
+                          ))}
+                        </div>
+                      )}
+                      <div className="track-dot" />
+                      <span className="track-hour">{h === 0 ? "0" : h}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
       {blocks.length === 0 && (

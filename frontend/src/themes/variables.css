@@ -58,8 +58,8 @@
 
   --garden-light: rgba(196, 168, 224, 0.05);
 
-  --day-morning: #251D1A;
-  --day-midday: #1A1520;
-  --day-evening: #1A1530;
-  --day-busy: rgba(232, 223, 229, 0.03);
+  --day-morning: #2D2218;
+  --day-midday: #1E1828;
+  --day-evening: #1A1535;
+  --day-busy: rgba(232, 223, 229, 0.06);
 }

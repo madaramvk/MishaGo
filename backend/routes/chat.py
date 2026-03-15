@@ -48,7 +48,7 @@ def stream_chat():
         full_response = ""
         try:
             with client.messages.stream(
-                model="claude-sonnet-4-6-20250514",
+                model="claude-sonnet-4-6",
                 max_tokens=512,
                 system=system,
                 messages=messages,
@@ -66,6 +66,8 @@ def stream_chat():
                 db.session.commit()
             yield f"data: {json.dumps({'done': True})}\n\n"
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             yield f"data: {json.dumps({'error': str(e)})}\n\n"
 
     return Response(
@@ -101,7 +103,7 @@ def stream_goal_chat(goal_id):
         full_response = ""
         try:
             with client.messages.stream(
-                model="claude-sonnet-4-6-20250514",
+                model="claude-sonnet-4-6",
                 max_tokens=512,
                 system=system,
                 messages=messages,

@@ -1,60 +1,199 @@
-.day-canvas { padding: 0; }
+.day-canvas {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .day-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  z-index: 10;
 }
 
 .day-title { font-size: 18px; font-weight: 700; }
-.swipe-btn { background: none; border: none; font-size: 16px; color: var(--text-muted); cursor: pointer; padding: 8px; }
+.swipe-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+}
 
-.time-flow {
+/* Grid of 4 rows — fill full screen */
+.timeline-grid {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  padding: 0 8px 76px;
 }
 
-.hour-slot {
-  display: flex;
-  min-height: 40px;
-  padding: 4px 0;
-  transition: background 0.5s ease;
-}
-
-/* Time-of-day gradient tints */
-.hour-slot.morning { background: var(--day-morning); }
-.hour-slot.midday { background: var(--day-midday); }
-.hour-slot.evening { background: var(--day-evening); }
-
-/* Busy zones get slightly darker */
-.hour-slot.busy { background-color: var(--day-busy); }
-
-/* Free zones get more contrast (lighter) — achieved by NOT adding busy tint */
-
-.hour-hint {
-  width: 28px;
-  text-align: right;
-  padding-right: 8px;
-  font-size: 11px;
-  color: var(--text-hint);
-  padding-top: 4px;
-  flex-shrink: 0;
-}
-
-.hour-content {
+/* Each row — grows to fill available space */
+.timeline-row {
+  border-radius: 16px;
+  padding: 10px 12px 8px;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
+/* Morning — warm sunrise glow */
+.timeline-row.morning {
+  background: var(--day-morning);
+  position: relative;
+  overflow: hidden;
+}
+.timeline-row.morning::before {
+  content: '☀';
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-size: 16px;
+  opacity: 0.3;
+}
+
+/* Day — bright, clean */
+.timeline-row.midday {
+  background: var(--day-midday);
+  position: relative;
+}
+.timeline-row.midday::before {
+  content: '🌤';
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-size: 16px;
+  opacity: 0.3;
+}
+
+/* Evening — sunset gradient */
+.timeline-row.evening {
+  background: linear-gradient(135deg, var(--day-evening), rgba(196, 168, 224, 0.08));
+  position: relative;
+}
+.timeline-row.evening::before {
+  content: '🌅';
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-size: 16px;
+  opacity: 0.3;
+}
+
+/* Night — deep with stars */
+.timeline-row.night {
+  background: linear-gradient(135deg, var(--day-evening), rgba(26, 21, 48, 0.4));
+  position: relative;
+  overflow: hidden;
+}
+.timeline-row.night::before {
+  content: '✦ ✧ ✦   ✧   ✦ ✧   ✦   ✧ ✦';
+  position: absolute;
+  top: 6px;
+  left: 50px;
+  right: 16px;
+  font-size: 8px;
+  color: var(--text-hint);
+  opacity: 0.5;
+  letter-spacing: 4px;
+  animation: twinkle 3s ease-in-out infinite alternate;
+}
+.timeline-row.night::after {
+  content: '🌙';
+  position: absolute;
+  right: 16px;
+  top: 8px;
+  font-size: 16px;
+  opacity: 0.3;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.3; }
+}
+
+.row-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-hint);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+
+/* Track = line + points laid out with flexbox */
+.row-track {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Horizontal line behind the dots */
+.track-line {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--text-hint);
+  opacity: 0.25;
+  border-radius: 1px;
+}
+
+/* Points spread evenly using flexbox */
+.track-points {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 8px;
+  width: 100%;
+}
+
+/* Each point = bubble (optional) + dot + hour label */
+.track-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 40px;
+}
+
+/* Bubble container above dot */
+.track-bubbles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+/* Dot on the line — hidden */
+.track-dot {
+  display: none;
+}
+
+/* Hour label */
+.track-hour {
+  font-size: 9px;
+  color: var(--text-hint);
+  font-weight: 600;
+}
+
+.track-point.busy .track-hour {
+  color: var(--text-muted);
+}
+
+/* Empty day */
 .empty-day {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex: 1;
   padding: 48px 16px;
 }
 

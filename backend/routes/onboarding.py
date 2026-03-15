@@ -27,7 +27,7 @@ def extract_from_conversation(messages, api_key):
     )
 
     response = client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-4-6",
         max_tokens=1024,
         system=EXTRACTION_PROMPT,
         messages=[{"role": "user", "content": conversation_text}],

@@ -30,22 +30,29 @@ export default function GucciHome() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Gucci speaks first if no messages
+  // Gucci speaks first on page load
+  const greetingSent = useRef(false);
   useEffect(() => {
-    if (messages.length === 0 && !streaming) {
-      const hour = new Date().getHours();
-      let greeting;
-      if (hour < 12) greeting = "Good morning! How are you feeling today? ☀️";
-      else if (hour < 18) greeting = "Hey! How's the day going? 🌤";
-      else greeting = "Good evening! How was your day? 🌙";
+    if (greetingSent.current || streaming) return;
 
-      // Only send auto-greeting if we have an API key set up
-      fetchJSON("/settings").then((settings) => {
-        if (settings.api_key && settings.onboarded === "true") {
-          send(greeting.replace(/[☀️🌤🌙]/g, "").trim());
-        }
-      }).catch(() => {});
-    }
+    fetchJSON("/settings").then((settings) => {
+      if (!settings.api_key) return; // no API key yet
+      if (greetingSent.current) return;
+      greetingSent.current = true;
+
+      if (settings.onboarded !== "true") {
+        // First time — Gucci initiates onboarding conversation
+        send("Привет! Я только что открыл приложение. Познакомимся?");
+      } else if (messages.length === 0) {
+        // Returning user with no chat history today
+        const hour = new Date().getHours();
+        let prompt;
+        if (hour < 12) prompt = "Доброе утро! Как я себя чувствую сегодня?";
+        else if (hour < 18) prompt = "Привет! Как проходит мой день?";
+        else prompt = "Добрый вечер! Как прошёл мой день?";
+        send(prompt);
+      }
+    }).catch(() => {});
   }, [messages.length]);
 
   const toggleHabit = async (habitId, xpReward) => {
