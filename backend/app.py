@@ -35,6 +35,12 @@ def create_app(config=None):
         from backend.routes.schedule import bp as schedule_bp
         app.register_blueprint(schedule_bp)
 
+        from backend.routes.chat import bp as chat_bp
+        app.register_blueprint(chat_bp)
+
+        from backend.routes.onboarding import bp as onboarding_bp
+        app.register_blueprint(onboarding_bp)
+
     return app
 
 
