@@ -26,6 +26,9 @@ def create_app(config=None):
         from backend.routes.habits import bp as habits_bp
         app.register_blueprint(habits_bp)
 
+        from backend.routes.goals import bp as goals_bp
+        app.register_blueprint(goals_bp)
+
     return app
 
 
