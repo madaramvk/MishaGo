@@ -6,14 +6,29 @@ from backend.ai_coach import build_context
 
 bp = Blueprint("schedule", __name__, url_prefix="/api/schedule")
 
-SCHEDULE_PROMPT = """You are generating a daily schedule for the user based on their goals and habits.
+SCHEDULE_PROMPT = """You are Gucci, generating a daily schedule for the user.
 
-Create a realistic schedule that:
-- Starts from their wake time
-- Includes their active habits at appropriate times
-- Includes work blocks for their active goals
-- Leaves breathing room (don't pack every hour)
-- Ends with evening habits (reading, etc.)
+RULES:
+- Start from their wake time
+- Include active habits at appropriate times
+- Include work blocks for active goals
+- Leave breathing room — don't pack every hour
+- Evening habits (reading) go before sleep
+
+ENERGY AWARENESS:
+- Morning (wake to wake+4h): HIGH energy → hardest tasks (deep work, learning, coding)
+- Midday (wake+4h to wake+8h): MEDIUM energy → practical tasks (applications, proposals)
+- Evening: LOW energy → light habits (reading, reflection)
+
+INTENSITY MODES:
+- If mode="light": fewer blocks, shorter durations, more free time. User is tired or struggling.
+- If mode="normal": balanced schedule. Default.
+- If mode="intense": pack it tight, longer blocks, every hour counts. User is motivated and believes they can push.
+
+GOAL URGENCY:
+- Goals with low progress AND deadlines → prioritize these
+- Goals stuck at 0% for days → give them prime morning slots
+- Don't waste the day — every block should move a goal forward
 
 Return ONLY valid JSON array:
 [
@@ -55,13 +70,39 @@ def generate_schedule():
 
     data = request.get_json(silent=True) or {}
     target_date_str = data.get("date")
+    mode = data.get("mode", "normal")  # light / normal / intense
     tomorrow = date.fromisoformat(target_date_str) if target_date_str else date.today() + timedelta(days=1)
 
     # Build context for AI
     wake = Setting.query.get("wake_time")
     wake_time = wake.value if wake else "07:00"
     context = build_context()
-    context += f"\n\nWake time: {wake_time}\nGenerate schedule for: {tomorrow.isoformat()}"
+
+    # Add goal progress details
+    from backend.models import GoalStep
+    goals = Goal.query.filter_by(status="active").all()
+    goal_details = []
+    for g in goals:
+        steps = GoalStep.query.filter_by(goal_id=g.id).all()
+        done = sum(1 for s in steps if s.status == "done")
+        total = len(steps)
+        next_step = next((s.title for s in steps if s.status != "done"), None)
+        goal_details.append(f"  - {g.title}: {done}/{total} steps done. Next: {next_step or 'no steps'}")
+
+    if goal_details:
+        context += "\n\nGoal details:\n" + "\n".join(goal_details)
+
+    # Add schedule history (what was done/skipped yesterday)
+    yesterday = tomorrow - timedelta(days=1)
+    yesterday_blocks = ScheduleBlock.query.filter_by(date=yesterday).all()
+    if yesterday_blocks:
+        done_count = sum(1 for b in yesterday_blocks if b.status == "done")
+        skip_count = sum(1 for b in yesterday_blocks if b.status == "skipped")
+        context += f"\n\nYesterday: {done_count} done, {skip_count} skipped out of {len(yesterday_blocks)} planned"
+
+    context += f"\n\nWake time: {wake_time}"
+    context += f"\nIntensity mode: {mode}"
+    context += f"\nGenerate schedule for: {tomorrow.isoformat()}"
 
     try:
         blocks_data = generate_schedule_ai(api_key_setting.value, context)

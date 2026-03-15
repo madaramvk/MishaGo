@@ -50,12 +50,23 @@ export default function DayCanvas() {
     setCurrentDate(d);
   };
 
-  const generateSchedule = async () => {
-    await fetchJSON("/schedule/generate", {
-      method: "POST",
-      body: JSON.stringify({ date: dateStr }),
-    });
-    fetchJSON(`/schedule/${dateStr}`).then(setBlocks);
+  const [showModeSelect, setShowModeSelect] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const generateSchedule = async (mode = "normal") => {
+    setGenerating(true);
+    setShowModeSelect(false);
+    try {
+      await fetchJSON("/schedule/generate", {
+        method: "POST",
+        body: JSON.stringify({ date: dateStr, mode }),
+      });
+      const data = await fetchJSON(`/schedule/${dateStr}`);
+      setBlocks(data);
+    } catch (e) {
+      console.error("Schedule generation failed:", e);
+    }
+    setGenerating(false);
   };
 
   const visibleBlocks = blocks.filter((b) => b.block_type !== "custom");
@@ -122,16 +133,41 @@ export default function DayCanvas() {
         })}
       </div>
 
-      {blocks.length === 0 ? (
+      {generating && (
         <div className="empty-day">
-          <button className="generate-btn" onClick={generateSchedule}>
+          <span className="generating-text">🔮 Gucci is thinking...</span>
+        </div>
+      )}
+
+      {!generating && blocks.length === 0 && (
+        <div className="empty-day">
+          <button className="generate-btn" onClick={() => generateSchedule("normal")}>
             🔮 Ask Gucci to plan this day
           </button>
         </div>
-      ) : (
+      )}
+
+      {!generating && blocks.length > 0 && (
         <div className="regen-row">
-          <button className="regen-btn" onClick={generateSchedule}>
+          <button className="regen-btn" onClick={() => setShowModeSelect(!showModeSelect)}>
             🔄 Replan
+          </button>
+        </div>
+      )}
+
+      {showModeSelect && (
+        <div className="mode-select">
+          <button className="mode-btn light" onClick={() => generateSchedule("light")}>
+            🌿 Light
+            <span className="mode-desc">fewer tasks, more rest</span>
+          </button>
+          <button className="mode-btn normal" onClick={() => generateSchedule("normal")}>
+            ⚖️ Balanced
+            <span className="mode-desc">steady progress</span>
+          </button>
+          <button className="mode-btn intense" onClick={() => generateSchedule("intense")}>
+            🔥 Intense
+            <span className="mode-desc">push harder today</span>
           </button>
         </div>
       )}

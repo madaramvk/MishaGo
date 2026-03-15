@@ -380,3 +380,59 @@
 
 .regen-btn:active { transform: scale(0.95); }
 .regen-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* Generating state */
+.generating-text {
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Mode selector — 3 intensity buttons */
+.mode-select {
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px 4px;
+  justify-content: center;
+  animation: slideUp 0.25s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--text-hint);
+  background: var(--bg-glass, transparent);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-body, inherit);
+}
+
+.mode-btn:active { transform: scale(0.95); }
+
+.mode-btn.light:hover { border-color: #9DD6A3; background: rgba(157, 214, 163, 0.1); }
+.mode-btn.normal:hover { border-color: var(--accent); background: var(--accent-soft); }
+.mode-btn.intense:hover { border-color: #E8845A; background: rgba(232, 132, 90, 0.1); }
+
+.mode-desc {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-hint);
+}
