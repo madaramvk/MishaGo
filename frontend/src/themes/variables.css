@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+:root,
+[data-theme="light"] {
+  --bg: #FFF8F0;
+  --bg-card: #FFFFFF;
+  --text: #3D3440;
+  --text-muted: rgba(61, 52, 64, 0.5);
+  --text-hint: rgba(61, 52, 64, 0.2);
+  --shadow: 0 2px 12px rgba(61, 52, 64, 0.08);
+  --glow: none;
+  --nav-bg: rgba(255, 248, 240, 0.9);
+
+  /* Direction colors */
+  --color-career: #7EB8DA;
+  --color-health: #9DD6A3;
+  --color-mind: #C4A8E0;
+  --color-life: #F0C987;
+
+  /* Bubble opacity */
+  --bubble-fill: 0.2;
+  --bubble-border: 0.6;
+
+  /* Accent */
+  --accent: #C4A8E0;
+  --accent-soft: rgba(196, 168, 224, 0.2);
+
+  /* Garden */
+  --garden-light: rgba(255, 248, 240, 0.3);
+
+  /* Day gradient */
+  --day-morning: #FFF0E0;
+  --day-midday: #FFFDF8;
+  --day-evening: #F0E8F8;
+  --day-busy: rgba(61, 52, 64, 0.04);
+}
+
+[data-theme="dark"] {
+  --bg: #1A1520;
+  --bg-card: #252030;
+  --text: #E8DFE5;
+  --text-muted: rgba(232, 223, 229, 0.5);
+  --text-hint: rgba(232, 223, 229, 0.2);
+  --shadow: none;
+  --glow: 0 0 20px rgba(196, 168, 224, 0.1);
+  --nav-bg: rgba(26, 21, 32, 0.9);
+
+  --color-career: #7EB8DA;
+  --color-health: #9DD6A3;
+  --color-mind: #C4A8E0;
+  --color-life: #F0C987;
+
+  --bubble-fill: 0.15;
+  --bubble-border: 0.4;
+
+  --accent: #C4A8E0;
+  --accent-soft: rgba(196, 168, 224, 0.15);
+
+  --garden-light: rgba(196, 168, 224, 0.05);
+
+  --day-morning: #251D1A;
+  --day-midday: #1A1520;
+  --day-evening: #1A1530;
+  --day-busy: rgba(232, 223, 229, 0.03);
+}
