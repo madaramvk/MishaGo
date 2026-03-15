@@ -1,11 +1,11 @@
 import "./Gucci.css";
 
 const moodColors = {
-  happy: "#B89ADB",
-  content: "#9ABFDB",
-  cozy: "#D4A574",
-  sleepy: "#7A8BA0",
-  concerned: "#C49A9A",
+  happy: "#D4A46C",
+  content: "#9EC28D",
+  cozy: "#D4A46C",
+  sleepy: "#A89880",
+  concerned: "#C4A090",
 };
 
 export default function Gucci({ mood = "content", onClick }) {

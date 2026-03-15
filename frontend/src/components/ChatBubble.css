@@ -1,7 +1,7 @@
 .chat-bubble {
   display: flex;
-  margin: 6px 16px;
-  animation: bubbleIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin: 5px 0;
+  animation: bubbleIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .chat-bubble.gucci {
@@ -17,34 +17,40 @@
   padding: 12px 16px;
   border-radius: 20px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.01em;
 }
 
-/* Gucci's bubble — frosted glass with subtle accent border */
+/* Gucci's bubble — warm cream/beige, gentle shadow, no glassmorphism */
 .chat-bubble.gucci .bubble-content {
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--bg-card);
   color: var(--text);
-  border: 1px solid var(--text-hint);
+  border: 1px solid rgba(139, 175, 124, 0.2);
   border-bottom-left-radius: 6px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(61, 48, 32, 0.08), 0 0 0 0 transparent;
 }
 
-/* User's bubble — warm accent glass */
+[data-theme="dark"] .chat-bubble.gucci .bubble-content {
+  background: rgba(52, 42, 34, 0.9);
+  border-color: rgba(158, 194, 141, 0.18);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* User's bubble — soft sage green tint, warm */
 .chat-bubble.user .bubble-content {
-  background: linear-gradient(135deg,
-    rgba(184, 154, 219, 0.18),
-    rgba(212, 165, 116, 0.12)
-  );
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(139, 175, 124, 0.22);
   color: var(--text);
-  border: 1px solid rgba(184, 154, 219, 0.2);
+  border: 1px solid rgba(139, 175, 124, 0.35);
   border-bottom-right-radius: 6px;
+  box-shadow: 0 2px 8px rgba(61, 48, 32, 0.06);
+}
+
+[data-theme="dark"] .chat-bubble.user .bubble-content {
+  background: rgba(100, 140, 88, 0.25);
+  border-color: rgba(158, 194, 141, 0.3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .cursor {
@@ -65,7 +71,7 @@
 @keyframes bubbleIn {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.96);
+    transform: translateY(10px) scale(0.97);
   }
   to {
     opacity: 1;
@@ -73,15 +79,15 @@
   }
 }
 
-/* Desktop — wider bubbles, bigger text */
+/* Desktop — slightly wider, bigger text */
 @media (min-width: 768px) {
   .bubble-content {
-    max-width: 70%;
+    max-width: 72%;
     font-size: 15px;
     padding: 14px 20px;
   }
 
   .chat-bubble {
-    margin: 8px 24px;
+    margin: 6px 0;
   }
 }

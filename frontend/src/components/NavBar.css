@@ -1,30 +1,37 @@
 /* ==========================================
-   MOBILE — bottom bar (default)
+   MOBILE — floating pill at bottom center
    ========================================== */
 .navbar {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: space-around;
-  padding: 8px 20px 14px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
   background: var(--nav-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid var(--text-hint);
+  border: 1px solid var(--text-hint);
+  border-radius: 40px;
   z-index: 100;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 1px 4px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
 }
 
 .nav-tab {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
-  padding: 6px 18px;
-  border-radius: 16px;
+  padding: 8px 16px;
+  border-radius: 28px;
   text-decoration: none;
-  color: var(--text-hint);
+  color: var(--text-muted);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   border: 1px solid transparent;
   font-family: var(--font-body);
@@ -33,98 +40,55 @@
 .nav-tab.active {
   background: var(--accent-soft);
   color: var(--text);
-  border-color: rgba(184, 154, 219, 0.15);
+  border-color: rgba(139, 175, 124, 0.25);
+  transform: scale(1.05);
+}
+
+.nav-tab:hover:not(.active) {
+  color: var(--text);
+  background: rgba(139, 175, 124, 0.08);
 }
 
 .nav-icon {
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
 }
 
 .nav-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 }
 
 /* ==========================================
-   DESKTOP — vertical sidebar (>= 768px)
+   DESKTOP (>= 768px) — same pill, slightly larger
    ========================================== */
 @media (min-width: 768px) {
   .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    bottom: auto;
-    right: auto;
-    width: 220px;
-    min-width: 220px;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 4px;
-    padding: 24px 12px;
-    border-top: none;
-    border-right: 1px solid var(--text-hint);
-    background: var(--bg);
-    backdrop-filter: none;
+    bottom: 20px;
+    padding: 10px 16px;
+    gap: 6px;
+    border-radius: 44px;
   }
 
   .nav-tab {
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
-    border-radius: 14px;
-    width: 100%;
+    padding: 10px 20px;
+    gap: 4px;
   }
 
   .nav-icon {
-    font-size: 20px;
-    width: 28px;
-    text-align: center;
+    font-size: 22px;
   }
 
   .nav-label {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0;
-  }
-
-  .nav-tab.active {
-    background: var(--accent-soft);
-    border-color: rgba(184, 154, 219, 0.2);
-  }
-
-  /* App title at top of sidebar */
-  .navbar::before {
-    content: 'MishaGo';
-    display: block;
-    font-family: var(--font-display, Georgia, serif);
-    font-size: 24px;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--text);
-    padding: 8px 16px 24px;
-    letter-spacing: 2px;
-    border-bottom: 1px solid var(--text-hint);
-    margin-bottom: 16px;
+    font-size: 10px;
   }
 }
 
-/* Large desktop — wider sidebar */
-@media (min-width: 1200px) {
-  .navbar {
-    width: 260px;
-    min-width: 260px;
-    padding: 32px 16px;
-  }
-
-  .nav-tab {
-    padding: 14px 20px;
-  }
-
+/* Large desktop — show labels more clearly */
+@media (min-width: 1100px) {
   .nav-label {
-    font-size: 15px;
+    font-size: 11px;
   }
 }

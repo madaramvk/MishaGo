@@ -4,42 +4,44 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-  padding: 24px 0 8px;
+  padding: 32px 0 12px;
   user-select: none;
-  min-height: 220px;
+  min-height: 260px;
 }
 
-/* ---- Glow behind character — makes it pop from any background ---- */
+/* ---- Golden warm glow behind character ---- */
 .gucci-glow {
   position: absolute;
-  width: 200px;
-  height: 220px;
+  width: 260px;
+  height: 280px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -52%);
   border-radius: 50%;
   background: radial-gradient(ellipse,
-    var(--aura, #9ABFDB) 0%,
-    transparent 60%
+    var(--aura, #D4A46C) 0%,
+    rgba(212, 164, 108, 0.3) 30%,
+    transparent 65%
   );
-  opacity: 0.15;
-  filter: blur(20px);
+  opacity: 0.22;
+  filter: blur(24px);
   animation: glowPulse 4s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
 @keyframes glowPulse {
-  0% { opacity: 0.1; transform: translate(-50%, -52%) scale(0.95); }
-  100% { opacity: 0.2; transform: translate(-50%, -52%) scale(1.05); }
+  0% { opacity: 0.15; transform: translate(-50%, -52%) scale(0.92); }
+  100% { opacity: 0.30; transform: translate(-50%, -52%) scale(1.08); }
 }
 
-/* ---- Character container ---- */
+/* ---- Character container — breathing animation ---- */
 .gucci-character {
   position: relative;
   z-index: 2;
-  width: 140px;
-  height: 190px;
-  animation: characterFloat 5s ease-in-out infinite;
+  /* Mobile: ~160px equivalent */
+  width: 160px;
+  height: 216px;
+  animation: breathe 4s ease-in-out infinite;
 }
 
 .gucci-character:active {
@@ -47,88 +49,90 @@
   transform: scale(0.93);
 }
 
-@keyframes characterFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/* Breathing (scale pulse) — gentle, organic */
+@keyframes breathe {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  40%       { transform: scaleY(1.025) scaleX(0.992); }
+  70%       { transform: scaleY(0.988) scaleX(1.006); }
 }
 
-/* ---- EARS ---- */
+/* ---- EARS ---- warm cream/beige ---- */
 .ear {
   position: absolute;
-  width: 26px;
-  height: 48px;
-  background: linear-gradient(170deg, #C8B8D8, #A898B8);
+  width: 30px;
+  height: 54px;
+  background: linear-gradient(170deg, #E8D8C4, #D4C0A8);
   border-radius: 50% 50% 40% 40%;
-  top: -24px;
+  top: -26px;
   z-index: 1;
 }
 
 [data-theme="dark"] .ear {
-  background: linear-gradient(170deg, #4A3E5C, #3A3048);
+  background: linear-gradient(170deg, #5A4535, #463626);
 }
 
-.ear-l { left: 24px; transform: rotate(-18deg); }
-.ear-r { right: 24px; transform: rotate(18deg); }
+.ear-l { left: 28px; transform: rotate(-18deg); }
+.ear-r { right: 28px; transform: rotate(18deg); }
 
 .ear-inner {
-  width: 12px;
-  height: 22px;
-  background: rgba(210, 160, 175, 0.4);
+  width: 14px;
+  height: 24px;
+  background: rgba(220, 150, 160, 0.55);
   border-radius: 50%;
-  margin: 10px auto 0;
+  margin: 11px auto 0;
 }
 
 [data-theme="dark"] .ear-inner {
-  background: rgba(180, 130, 145, 0.25);
+  background: rgba(200, 130, 140, 0.4);
 }
 
-/* ---- HEAD ---- */
+/* ---- HEAD ---- warm cream ---- */
 .head {
   position: absolute;
-  width: 100px;
-  height: 95px;
+  width: 114px;
+  height: 108px;
   border-radius: 50%;
   left: 50%;
   transform: translateX(-50%);
   top: 0;
   z-index: 3;
-  background: linear-gradient(150deg, #DDD0E8, #C4B4D4);
+  background: linear-gradient(150deg, #F0E4D0, #E0CEB8);
   box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.12),
-    inset 0 2px 4px rgba(255, 255, 255, 0.25),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.06);
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    inset 0 2px 5px rgba(255, 255, 255, 0.45),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.05);
 }
 
 [data-theme="dark"] .head {
-  background: linear-gradient(150deg, #352D42, #2A2436);
+  background: linear-gradient(150deg, #4A3C2E, #3C2E22);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.35),
-    inset 0 1px 3px rgba(255, 255, 255, 0.06),
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
     inset 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* ---- EYES ---- */
+/* ---- EYES ---- bigger, friendlier ---- */
 .eye {
   position: absolute;
-  width: 18px;
-  height: 20px;
-  background: #F5F0FF;
+  width: 22px;
+  height: 24px;
+  background: #FAFAFA;
   border-radius: 50%;
-  top: 28px;
+  top: 32px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 [data-theme="dark"] .eye {
-  background: #E8E0F0;
+  background: #F5F0E8;
 }
 
-.eye-l { left: 18px; }
-.eye-r { right: 18px; }
+.eye-l { left: 20px; }
+.eye-r { right: 20px; }
 
 .pupil {
-  width: 10px;
-  height: 12px;
-  background: #1E1828;
+  width: 13px;
+  height: 15px;
+  background: #2A1C10;
   border-radius: 50%;
   position: absolute;
   bottom: 2px;
@@ -138,14 +142,14 @@
 }
 
 .pupil.sleepy {
-  height: 5px;
-  bottom: 6px;
+  height: 6px;
+  bottom: 7px;
   border-radius: 40%;
 }
 
 .eye-shine {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: white;
   border-radius: 50%;
   position: absolute;
@@ -153,19 +157,31 @@
   right: 2px;
 }
 
+/* Second smaller shine for friendlier look */
+.eye-shine::after {
+  content: '';
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  position: absolute;
+  bottom: -3px;
+  left: -1px;
+}
+
 @keyframes eyeBlink {
   0%, 92%, 100% { transform: translateX(-50%) scaleY(1); }
   95% { transform: translateX(-50%) scaleY(0.08); }
 }
 
-/* ---- NOSE ---- */
+/* ---- NOSE ---- warm pink ---- */
 .nose {
   position: absolute;
-  width: 10px;
-  height: 7px;
-  background: #D4A0A8;
+  width: 12px;
+  height: 8px;
+  background: #E89FA0;
   border-radius: 50% 50% 40% 40%;
-  top: 45px;
+  top: 52px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -173,47 +189,47 @@
 /* ---- MOUTH ---- */
 .mouth {
   position: absolute;
-  top: 54px;
+  top: 62px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .mood-content, .mood-cozy {
-  width: 14px;
-  height: 7px;
-  border-bottom: 2.5px solid #D4A0A8;
+  width: 16px;
+  height: 8px;
+  border-bottom: 2.5px solid #E89FA0;
   border-radius: 0 0 50% 50%;
 }
 
 .mood-happy {
-  width: 20px;
-  height: 10px;
-  border-bottom: 3px solid #D4A0A8;
+  width: 24px;
+  height: 12px;
+  border-bottom: 3px solid #E89FA0;
   border-radius: 0 0 50% 50%;
 }
 
 .mood-concerned {
-  width: 12px;
+  width: 14px;
   height: 5px;
-  border-top: 2.5px solid #D4A0A8;
+  border-top: 2.5px solid #E89FA0;
   border-radius: 50% 50% 0 0;
 }
 
 .mood-sleepy {
   width: 10px;
   height: 10px;
-  border: 2px solid #D4A0A8;
+  border: 2px solid #E89FA0;
   border-radius: 50%;
 }
 
-/* ---- CHEEKS ---- */
+/* ---- CHEEKS ---- more visible, warm rose ---- */
 .cheek {
   position: absolute;
-  width: 14px;
-  height: 8px;
-  background: rgba(220, 160, 170, 0.25);
+  width: 18px;
+  height: 11px;
+  background: rgba(230, 140, 140, 0.38);
   border-radius: 50%;
-  top: 48px;
+  top: 55px;
 }
 
 .cheek-l { left: 10px; }
@@ -222,80 +238,80 @@
 /* ---- WHISKERS ---- */
 .whisker {
   position: absolute;
-  width: 22px;
+  width: 25px;
   height: 1.5px;
-  background: rgba(180, 150, 170, 0.35);
-  top: 48px;
+  background: rgba(160, 120, 100, 0.3);
+  top: 55px;
   border-radius: 1px;
 }
 
-.wl1 { left: -10px; transform: rotate(-10deg); }
-.wl2 { left: -8px; top: 53px; transform: rotate(10deg); }
-.wr1 { right: -10px; transform: rotate(10deg); }
-.wr2 { right: -8px; top: 53px; transform: rotate(-10deg); }
+.wl1 { left: -12px; transform: rotate(-10deg); }
+.wl2 { left: -10px; top: 61px; transform: rotate(10deg); }
+.wr1 { right: -12px; transform: rotate(10deg); }
+.wr2 { right: -10px; top: 61px; transform: rotate(-10deg); }
 
-/* ---- BODY ---- */
+/* ---- BODY ---- warm cream ---- */
 .body {
   position: absolute;
-  width: 80px;
-  height: 68px;
+  width: 92px;
+  height: 76px;
   left: 50%;
   transform: translateX(-50%);
-  top: 80px;
+  top: 90px;
   z-index: 2;
-  background: linear-gradient(170deg, #D0C0DE, #B8A8CA);
-  border-radius: 35px 35px 25px 25px;
+  background: linear-gradient(170deg, #ECD8C0, #D8C4A8);
+  border-radius: 40px 40px 28px 28px;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.08),
-    inset 0 1px 3px rgba(255, 255, 255, 0.2);
+    inset 0 2px 4px rgba(255, 255, 255, 0.35);
 }
 
 [data-theme="dark"] .body {
-  background: linear-gradient(170deg, #302840, #262034);
+  background: linear-gradient(170deg, #4A3828, #3C2C1E);
   box-shadow:
     0 4px 18px rgba(0, 0, 0, 0.3),
-    inset 0 1px 2px rgba(255, 255, 255, 0.04);
+    inset 0 1px 2px rgba(255, 255, 255, 0.06);
 }
 
 /* Belly lighter patch */
 .belly {
-  width: 36px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.12);
+  width: 40px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.22);
   border-radius: 50%;
   position: absolute;
-  bottom: 8px;
+  bottom: 9px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 [data-theme="dark"] .belly {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---- ARMS ---- */
 .arm {
   position: absolute;
-  width: 18px;
-  height: 30px;
-  background: linear-gradient(170deg, #C8B8D6, #B0A0BE);
-  border-radius: 10px 10px 12px 12px;
-  top: 8px;
+  width: 20px;
+  height: 34px;
+  background: linear-gradient(170deg, #E4D0B8, #CCBA9C);
+  border-radius: 10px 10px 14px 14px;
+  top: 9px;
   z-index: 1;
 }
 
 [data-theme="dark"] .arm {
-  background: linear-gradient(170deg, #2E2640, #242030);
+  background: linear-gradient(170deg, #483822, #382C1A);
 }
 
 .arm-l {
-  left: -6px;
+  left: -7px;
   transform: rotate(12deg);
   animation: armWaveL 6s ease-in-out infinite;
 }
 
 .arm-r {
-  right: -6px;
+  right: -7px;
   transform: rotate(-12deg);
   animation: armWaveR 6s ease-in-out 0.3s infinite;
 }
@@ -316,38 +332,38 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 70px;
+  width: 80px;
   display: flex;
   justify-content: space-between;
   z-index: 2;
 }
 
 .foot {
-  width: 24px;
-  height: 14px;
-  background: linear-gradient(170deg, #C4B4D2, #AE9EC0);
-  border-radius: 10px 10px 12px 12px;
+  width: 28px;
+  height: 16px;
+  background: linear-gradient(170deg, #E0CEB8, #CCBA9C);
+  border-radius: 12px 12px 14px 14px;
 }
 
 [data-theme="dark"] .foot {
-  background: linear-gradient(170deg, #2C2440, #221E32);
+  background: linear-gradient(170deg, #463828, #362A1A);
 }
 
 /* ---- TAIL ---- */
 .tail {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: linear-gradient(135deg, #D0C0DE, #C0B0CE);
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, #ECD8C0, #D8C4A8);
   border-radius: 50%;
-  bottom: 14px;
-  right: 14px;
+  bottom: 16px;
+  right: 16px;
   z-index: 1;
   animation: tailWag 3s ease-in-out infinite;
 }
 
 [data-theme="dark"] .tail {
-  background: linear-gradient(135deg, #302840, #282238);
+  background: linear-gradient(135deg, #4A3828, #3C2C1E);
 }
 
 @keyframes tailWag {
@@ -358,9 +374,9 @@
 
 /* ---- NAME LABEL ---- */
 .gucci-label {
-  margin-top: 8px;
+  margin-top: 10px;
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   font-style: italic;
   color: var(--text-muted);
@@ -369,11 +385,11 @@
   z-index: 2;
 }
 
-/* ---- SPARKLES ---- */
+/* ---- SPARKLES — warm amber/golden ---- */
 .sparkle {
   position: absolute;
-  font-size: 10px;
-  color: var(--accent);
+  font-size: 11px;
+  color: var(--accent-warm);
   opacity: 0;
   pointer-events: none;
   z-index: 1;
@@ -386,7 +402,139 @@
 
 @keyframes sparkleFloat {
   0%, 100% { opacity: 0; transform: translateY(0) scale(0.5); }
-  15% { opacity: 0.5; }
-  50% { opacity: 0.7; transform: translateY(-15px) scale(1.1); }
-  85% { opacity: 0.4; }
+  15% { opacity: 0.6; }
+  50% { opacity: 0.85; transform: translateY(-18px) scale(1.2); }
+  85% { opacity: 0.5; }
+}
+
+/* ---- DESKTOP — bigger Gucci ---- */
+@media (min-width: 768px) {
+  .gucci-wrap {
+    padding: 40px 0 16px;
+    min-height: 320px;
+  }
+
+  .gucci-character {
+    width: 200px;
+    height: 272px;
+  }
+
+  .gucci-glow {
+    width: 320px;
+    height: 340px;
+  }
+
+  .ear {
+    width: 38px;
+    height: 68px;
+    top: -32px;
+  }
+
+  .ear-l { left: 34px; }
+  .ear-r { right: 34px; }
+
+  .ear-inner {
+    width: 17px;
+    height: 30px;
+  }
+
+  .head {
+    width: 142px;
+    height: 135px;
+  }
+
+  .eye {
+    width: 28px;
+    height: 30px;
+    top: 40px;
+  }
+
+  .eye-l { left: 24px; }
+  .eye-r { right: 24px; }
+
+  .pupil {
+    width: 16px;
+    height: 19px;
+  }
+
+  .nose {
+    width: 15px;
+    height: 10px;
+    top: 65px;
+  }
+
+  .mouth {
+    top: 77px;
+  }
+
+  .mood-content, .mood-cozy {
+    width: 20px;
+    height: 10px;
+  }
+
+  .mood-happy {
+    width: 28px;
+    height: 14px;
+  }
+
+  .cheek {
+    width: 22px;
+    height: 14px;
+    top: 69px;
+  }
+
+  .whisker {
+    top: 68px;
+    width: 30px;
+  }
+
+  .wl2 { top: 76px; }
+  .wr2 { top: 76px; }
+
+  .body {
+    width: 116px;
+    height: 96px;
+    top: 112px;
+    border-radius: 50px 50px 34px 34px;
+  }
+
+  .belly {
+    width: 52px;
+    height: 44px;
+  }
+
+  .arm {
+    width: 26px;
+    height: 44px;
+    top: 10px;
+  }
+
+  .arm-l { left: -9px; }
+  .arm-r { right: -9px; }
+
+  .feet {
+    width: 100px;
+  }
+
+  .foot {
+    width: 34px;
+    height: 20px;
+  }
+
+  .tail {
+    width: 28px;
+    height: 28px;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .gucci-label {
+    font-size: 24px;
+    letter-spacing: 4px;
+    margin-top: 14px;
+  }
+
+  .sparkle {
+    font-size: 13px;
+  }
 }

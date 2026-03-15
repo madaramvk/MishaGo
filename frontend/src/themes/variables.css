@@ -1,22 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Nunito:wght@400;500;600;700&display=swap');
 
 :root,
 [data-theme="light"] {
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
 
-  --bg: #F7F0E8;
-  --bg-deep: #EDE4D8;
-  --bg-card: rgba(255, 255, 255, 0.6);
-  --bg-glass: rgba(255, 255, 255, 0.45);
-  --text: #2C2430;
-  --text-muted: rgba(44, 36, 48, 0.55);
-  --text-hint: rgba(44, 36, 48, 0.2);
-  --shadow: 0 4px 24px rgba(44, 36, 48, 0.06);
-  --shadow-lg: 0 8px 40px rgba(44, 36, 48, 0.1);
+  --bg: #FFF8F0;
+  --bg-deep: #F5EDE0;
+  --bg-card: rgba(255, 255, 255, 0.75);
+  --bg-glass: rgba(255, 248, 240, 0.7);
+  --text: #3D3020;
+  --text-muted: rgba(61, 48, 32, 0.55);
+  --text-hint: rgba(61, 48, 32, 0.2);
+  --shadow: 0 4px 24px rgba(61, 48, 32, 0.08);
+  --shadow-lg: 0 8px 40px rgba(61, 48, 32, 0.12);
   --glow: none;
-  --nav-bg: rgba(247, 240, 232, 0.85);
+  --nav-bg: rgba(255, 248, 240, 0.9);
 
   /* Direction colors */
   --color-career: #7EB8DA;
@@ -28,39 +28,40 @@
   --bubble-fill: 0.2;
   --bubble-border: 0.6;
 
-  /* Accent */
-  --accent: #A688C4;
-  --accent-warm: #D4A574;
-  --accent-soft: rgba(166, 136, 196, 0.15);
+  /* Accent — warm sage green as primary, amber as warm complement */
+  --accent: #8BAF7C;
+  --accent-warm: #D4A46C;
+  --accent-soft: rgba(139, 175, 124, 0.18);
 
   /* Garden greenhouse */
-  --greenhouse-glass: rgba(255, 255, 255, 0.08);
-  --greenhouse-frame: rgba(44, 36, 48, 0.06);
-  --leaf-green: rgba(120, 180, 130, 0.15);
-  --moss-green: rgba(80, 140, 90, 0.1);
+  --greenhouse-glass: rgba(255, 255, 255, 0.12);
+  --greenhouse-frame: rgba(61, 48, 32, 0.07);
+  --leaf-green: rgba(100, 160, 100, 0.22);
+  --moss-green: rgba(70, 130, 80, 0.15);
 
   /* Day gradient */
   --day-morning: #FFF0E0;
   --day-midday: #FFFDF8;
-  --day-evening: #F0E8F8;
-  --day-busy: rgba(61, 52, 64, 0.04);
+  --day-evening: #F5EDE0;
+  --day-busy: rgba(61, 48, 32, 0.04);
 }
 
 [data-theme="dark"] {
   --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
 
-  --bg: #12101A;
-  --bg-deep: #0E0C15;
-  --bg-card: rgba(30, 26, 42, 0.7);
-  --bg-glass: rgba(35, 30, 50, 0.5);
-  --text: #E0D8E8;
-  --text-muted: rgba(224, 216, 232, 0.5);
-  --text-hint: rgba(224, 216, 232, 0.15);
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
-  --glow: 0 0 30px rgba(166, 136, 196, 0.08);
-  --nav-bg: rgba(18, 16, 26, 0.88);
+  /* Warm evening dark — NOT cold void */
+  --bg: #1C1714;
+  --bg-deep: #160F0C;
+  --bg-card: rgba(42, 35, 30, 0.75);
+  --bg-glass: rgba(42, 35, 30, 0.6);
+  --text: #F0E8DC;
+  --text-muted: rgba(240, 232, 220, 0.55);
+  --text-hint: rgba(240, 232, 220, 0.2);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 30px rgba(139, 175, 124, 0.1);
+  --nav-bg: rgba(28, 23, 20, 0.92);
 
   --color-career: #7EB8DA;
   --color-health: #9DD6A3;
@@ -70,17 +71,19 @@
   --bubble-fill: 0.12;
   --bubble-border: 0.35;
 
-  --accent: #B89ADB;
-  --accent-warm: #D4A574;
-  --accent-soft: rgba(184, 154, 219, 0.12);
+  /* Accent — warm sage green, amber complement */
+  --accent: #9EC28D;
+  --accent-warm: #D4A46C;
+  --accent-soft: rgba(158, 194, 141, 0.15);
 
-  --greenhouse-glass: rgba(184, 154, 219, 0.03);
-  --greenhouse-frame: rgba(184, 154, 219, 0.06);
-  --leaf-green: rgba(120, 180, 130, 0.08);
-  --moss-green: rgba(80, 140, 90, 0.06);
+  /* Garden greenhouse — warm amber light, rich greens */
+  --greenhouse-glass: rgba(212, 164, 108, 0.05);
+  --greenhouse-frame: rgba(212, 164, 108, 0.08);
+  --leaf-green: rgba(100, 160, 90, 0.18);
+  --moss-green: rgba(70, 120, 70, 0.14);
 
-  --day-morning: #2D2218;
-  --day-midday: #1E1828;
-  --day-evening: #1A1535;
-  --day-busy: rgba(232, 223, 229, 0.06);
+  --day-morning: #2A1E14;
+  --day-midday: #1C1714;
+  --day-evening: #201510;
+  --day-busy: rgba(240, 232, 220, 0.06);
 }
